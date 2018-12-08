@@ -2,4 +2,5 @@ models/
 textures/
 ipch/
 .vs/
+Debug/
 /OpenGLMeshLoader.sdf
