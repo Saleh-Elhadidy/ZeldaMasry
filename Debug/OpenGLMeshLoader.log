@@ -1,0 +1,5 @@
+﻿  NewOpenGLMeshLoader.cpp
+c:\semester 7\graphics\assignment 2\opengl3dtemplate\lab_07\lab 7\lab 7\openglmeshloader\texturebuilder.h(27): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\semester 7\graphics\assignment 2\opengl3dtemplate\lab_07\lab 7\lab 7\openglmeshloader\texturebuilder.h(28): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+GLTexture.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+  OpenGLMeshLoader.vcxproj -> C:\Semester 7\Graphics\Assignment 2\OpenGL3DTemplate\Lab_07\Lab 7\Lab 7\OpenGLMeshLoader\Debug\OpenGLMeshLoader.exe
