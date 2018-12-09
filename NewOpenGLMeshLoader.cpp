@@ -384,6 +384,7 @@ void myDisplay(void)
 
 	glPushMatrix();
 	glTranslated(-2, 0, -5);
+
 	glPushMatrix();
 	glTranslatef(40, 0, 30);
 	glScalef(0.7, 0.7, 0.7);
@@ -433,11 +434,11 @@ void myDisplay(void)
 
 		//draw baby
 
-	//glPushMatrix();
-	//glTranslatef(-20, 15, -44);
-	//glScaled(0.2, 0.2, 0.2);
-	//model_baby.Draw();
-	//glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-20, 15, -44);
+	glScaled(0.2, 0.2, 0.2);
+	model_baby.Draw();
+	glPopMatrix();
 
 	//draw dragon
 	glPushMatrix();
@@ -488,23 +489,23 @@ void myKeyboard(unsigned char button, int x, int y)
 {
 	switch (button)
 	{
-	case 'w':
-		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-		break;
 	case 'r':
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		break;
-	case 'g':
+	case 'd':
 		LookLeft = true;
 		LookRight = false;
 		LookForward = false;
 		LookBackward = false;
-		if (HeroX != 38) {
+		if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
+			HeroX += 1;
+		}
+		if (HeroX != 38 && HeroX < 8) {
 			HeroX += 1;
 		}
 		printf("The location is (g movment) %d\n", HeroX);
 		break;
-	case 'h':
+	case 'a':
 		LookLeft = false;
 		LookBackward = false;
 		LookForward = false;
@@ -514,24 +515,38 @@ void myKeyboard(unsigned char button, int x, int y)
 		}
 		printf("The location is (h movment) %d\n", HeroX);
 		break;
-	case 'z':
+	case 's':
 		LookForward = true;
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = false;
-		if (HeroZ != 38) {
+		if(HeroZ != 38){
+		if (( HeroZ <= 20 || HeroZ >= 28 )) {
 			HeroZ += 1;
 		}
+
+		if ( HeroX < 7) {
+			HeroZ += 1;
+		}
+		}
+
 		printf("The location is (z movment) %d\n", HeroZ);
 
 		break;
-	case 'x':
+	case 'w':
 		LookForward = false;;
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = true;
-		if (HeroZ != -38) {
-			HeroZ -= 1;
+
+		if (HeroZ != -38 ) {
+			if (HeroZ >= 29 || HeroZ <= 21) {
+				HeroZ -= 1;
+			}
+
+			if ( HeroX < 7) {
+				HeroZ -= 1;
+			}
 		}
 		printf("The location is (x movment) %d\n", HeroZ);
 		break;
@@ -574,12 +589,12 @@ void myMotion(int x, int y)
 	if (cameraZoom - y > 0)
 	{
 		//Eye.x += -0.1;
-		Eye.z += -1;
+		Eye.z += -3;
 	}
 	else
 	{
 		//Eye.x += 0.1;
-		Eye.z += 1;
+		Eye.z += 3;
 	}
 
 	cameraZoom = y;
@@ -689,7 +704,7 @@ void LoadAssets()
 	//model_enemy2.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
-	//model_baby.Load("Models/baby/baby.3ds");
+	model_baby.Load("Models/baby/baby.3ds");
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
