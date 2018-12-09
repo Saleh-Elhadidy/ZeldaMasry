@@ -860,7 +860,7 @@ void myKeyboard(unsigned char button, int x, int y)
 			}
 			if (LookLeft) {
 				bulletDirection = 3;
-			}
+			}	
 			if (LookRight) {
 				bulletDirection = 4;
 			}
