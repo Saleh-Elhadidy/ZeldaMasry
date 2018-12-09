@@ -683,10 +683,10 @@ void Anim() {
 	}
 
 	//motion functions for Enemy 2
-	//if (Enemy2BackForward == 0)
-		//MoveEnemy2X += 0.1;
-	//else
-		//MoveEnemy2X -= 0.1;
+	if (Enemy2BackForward == 0)
+		MoveEnemy2X += 0.1;
+	else
+		MoveEnemy2X -= 0.1;
 
 	if (MoveEnemy2X >= 35) {
 		Enemy2BackForward = 1;
