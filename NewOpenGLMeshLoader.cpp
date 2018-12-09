@@ -61,7 +61,7 @@ int HitEnemy3 = 0;
 int HitEnemy4 = 0;
 int HitEnemy5 = 0;
 int HitEnemy6 = 0;
-
+bool lastDir = true;
 GLuint tex;
 char title[] = "3D Model Loader Sample";
 void Anim();
@@ -187,7 +187,7 @@ void myInit(void)
 
 	glLoadIdentity();
 
-	gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, Up.x, Up.y, Up.z);
+	//gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, Up.x, Up.y, Up.z);
 	//*******************************************************************************************//
 	// EYE (ex, ey, ez): defines the location of the camera.									 //
 	// AT (ax, ay, az):	 denotes the direction where the camera is aiming at.					 //
@@ -292,7 +292,6 @@ void myDisplay(void)
 	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
-
 	// Draw Ground
 	RenderGround();
 	RenderGround2();
@@ -788,9 +787,6 @@ void myKeyboard(unsigned char button, int x, int y)
 {
 	switch (button)
 	{
-	case 'r':
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		break;
 	case 'd':
 		LookLeft = true;
 		LookRight = false;
@@ -802,9 +798,22 @@ void myKeyboard(unsigned char button, int x, int y)
 		if (HeroX != 38 && HeroX < 5) {
 			HeroX += 1;
 		}
-		printf("The location is (g movment) %d\n", HeroX);
+		Eye.x = HeroX + 1;
+		if (lastDir) {
+			Eye.z = HeroZ + 20;
+
+		}
+		else {
+			Eye.z = HeroZ - 20;
+
+		}		At.x = HeroX+1;
+		At.y = 3;
+		At.z = HeroZ;
+		glLoadIdentity();
+		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+
 		break;
-	case 'a':
+	case'a':
 		LookLeft = false;
 		LookBackward = false;
 		LookForward = false;
@@ -812,42 +821,71 @@ void myKeyboard(unsigned char button, int x, int y)
 		if (HeroX != -38) {
 			HeroX -= 1;
 		}
-		printf("The location is (h movment) %d\n", HeroX);
+		Eye.x = HeroX - 1;
+		if(lastDir){
+			Eye.z = HeroZ + 20;
+
+		}
+		else {
+			Eye.z = HeroZ - 20;
+
+		}
+		At.x = HeroX-1;
+		At.y = 3;
+		At.z = HeroZ;
+		glLoadIdentity();
+		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
+
 	case 's':
+		lastDir = false;
 		LookForward = true;
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = false;
-		if(HeroZ != 38){
-		if (( HeroZ <= 20 || HeroZ >= 28 )) {
-			HeroZ += 1;
-		}
+		if (HeroZ != 38) {
+			if ((HeroZ <= 20 || HeroZ >= 28)) {
+				HeroZ += 1;
+			}
 
-		if ( HeroX < 5) {
-			HeroZ += 1;
-		}
-		}
+			if (HeroX < 5) {
+				HeroZ += 1;
+			}
 
-		printf("The location is (z movment) %d\n", HeroZ);
+			Eye.x = HeroX;
+			Eye.z = HeroZ - 20;
+			At.x = HeroX;
+			At.y = 3;
+			At.z = HeroZ;
+			glLoadIdentity();
+			gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+			break;
 
-		break;
+
+			break;
 	case 'w':
+		lastDir = true;
 		LookForward = false;;
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = true;
 
-		if (HeroZ != -38 ) {
+		if (HeroZ != -38) {
 			if (HeroZ >= 29 || HeroZ <= 21) {
 				HeroZ -= 1;
 			}
 
-			if ( HeroX < 5) {
+			if (HeroX < 5) {
 				HeroZ -= 1;
 			}
 		}
-		printf("The location is (x movment) %d\n", HeroZ);
+		Eye.x = HeroX;
+		Eye.z = HeroZ + 20;
+		At.x = HeroX;
+		At.y = 3;
+		At.z = HeroZ;
+		glLoadIdentity();
+		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
 	case'f':
 		if (!WepFire) {
@@ -873,9 +911,10 @@ void myKeyboard(unsigned char button, int x, int y)
 		break;
 	default:
 		break;
-	}
+		}
 
-	glutPostRedisplay();
+		glutPostRedisplay();
+	}
 }
 
 //=======================================================================
@@ -902,7 +941,7 @@ void myMotion(int x, int y)
 
 	glLoadIdentity();	//Clear Model_View Matrix
 
-	gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, Up.x, Up.y, Up.z);	//Setup Camera with modified paramters
+	//gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, Up.x, Up.y, Up.z);	//Setup Camera with modified paramters
 
 	GLfloat light_position[] = { 0.0f, 10.0f, 0.0f, 1.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
@@ -928,6 +967,7 @@ void myMouse(int button, int state, int x, int y)
 	}
 }
 void Anim() {
+
 	// Motions functions for Zombies
 	//motion gunctions for Enemy 1
 	if (Enemy1BackForward == 0)
@@ -1172,7 +1212,7 @@ void myReshape(int w, int h)
 	// go back to modelview matrix so we can move the objects about
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, Up.x, Up.y, Up.z);
+	//gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, Up.x, Up.y, Up.z);
 }
 
 //=======================================================================
@@ -1191,6 +1231,7 @@ void LoadAssets()
 	//model_enemy2.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
+
 	model_baby.Load("Models/baby/baby.3ds");
 	model_cage.Load("Models/birdcage/Cage.3ds");
 	model_stone.Load("Models/stone/stone podest 3DS.3ds");
