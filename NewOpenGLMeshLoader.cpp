@@ -23,17 +23,18 @@ int Enemy3BackForward = 0;
 int Enemy4BackForward = 0;
 
 float MoveEnemy1X = 5;
-float MoveEnemy2X = 5;
-float MoveEnemy3X = 5;
+float MoveEnemy2X = -38;
+float MoveEnemy3X = -35;
 float MoveEnemy4X = 12;
 
 float MoveEnemy1Z = 6;
-float MoveEnemy2Z = 3;
-float MoveEnemy3Z = 9;
+float MoveEnemy2Z = 36;
+float MoveEnemy3Z = 27;
 float MoveEnemy4Z = 4;
 
 int RotationAngleEnemi1 = 0;
-
+int RotationAngleEnemi2 =90;
+int RotationAngleEnemi3 = 90;
 GLuint tex;
 char title[] = "3D Model Loader Sample";
 void Anim();
@@ -61,8 +62,8 @@ public:
 	}
 };
 
-Vector Eye(20, 30, 30);
-Vector At(20, 0, -20);
+Vector Eye(0, 80, -50);
+Vector At(0, -120, -70);
 Vector Up(0, 1, 0);
 
 int cameraZoom = 0;
@@ -387,17 +388,19 @@ void myDisplay(void)
 	model_enemy1.Draw();
 	glPopMatrix();
 
-	//glPushMatrix();
-	//glTranslated(MoveEnemy2X, 0, MoveEnemy2Z);
-	//glScaled(0.07, 0.07, 0.07);
-	//model_enemy2.Draw();
-	//glPopMatrix();
+	glPushMatrix();
+	glTranslated(MoveEnemy2X, 0, MoveEnemy2Z);
+	glRotated(RotationAngleEnemi2, 0, 1, 0);
+	glScaled(0.07, 0.07, 0.07);
+	model_enemy1.Draw();
+	glPopMatrix();
 
-	//glPushMatrix();
-	//glTranslated(MoveEnemy3X, 0, MoveEnemy3Z);
-	//glScaled(0.07, 0.07, 0.07);
-	//model_enemy3.Draw();
-	//glPopMatrix();
+	glPushMatrix();
+	glTranslated(MoveEnemy3X, 0, MoveEnemy3Z);
+	glRotated(RotationAngleEnemi3, 0, 1, 0);
+	glScaled(0.07, 0.07, 0.07);
+	model_enemy1.Draw();
+	glPopMatrix();
 
 	//glPushMatrix();
 	//glTranslated(MoveEnemy4X, 0, MoveEnemy4Z);
@@ -502,13 +505,13 @@ void myMotion(int x, int y)
 
 	if (cameraZoom - y > 0)
 	{
-		Eye.x += -0.1;
-		Eye.z += -0.1;
+		//Eye.x += -0.1;
+		Eye.z += -1;
 	}
 	else
 	{
-		Eye.x += 0.1;
-		Eye.z += 0.1;
+		//Eye.x += 0.1;
+		Eye.z += 1;
 	}
 
 	cameraZoom = y;
@@ -537,6 +540,8 @@ void myMouse(int button, int state, int x, int y)
 	}
 }
 void Anim() {
+	// Motions functions for Zombies
+	//motion gunctions for Enemy 1
 	if (Enemy1BackForward == 0)
 		MoveEnemy1Z += 0.1;
 	else
@@ -550,6 +555,36 @@ void Anim() {
 		Enemy1BackForward = 0;
 		RotationAngleEnemi1 = 0;
 	}
+
+	//motion functions for Enemy 2
+	if (Enemy2BackForward == 0)
+		MoveEnemy2X += 0.1;
+	else
+		MoveEnemy2X -= 0.1;
+
+	if (MoveEnemy2X >= 35) {
+		Enemy2BackForward = 1;
+		RotationAngleEnemi2 = -90;
+	}
+	else if (MoveEnemy2X <= -35) {
+		Enemy2BackForward = 0;
+		RotationAngleEnemi2 = 90;
+	}
+	//motion functions for Enemy 3
+	if (Enemy3BackForward == 0)
+		MoveEnemy3X += 0.2;
+	else
+		MoveEnemy3X -= 0.2;
+
+	if (MoveEnemy3X >= 35) {
+		Enemy3BackForward = 1;
+		RotationAngleEnemi3 = -90;
+	}
+	else if (MoveEnemy3X <= -35) {
+		Enemy3BackForward = 0;
+		RotationAngleEnemi3 = 90;
+	}
+	///////
 	rotAngleWep += 5;
 	if (rotAngleWep == 720) {
 		rotAngleWep = 0;
