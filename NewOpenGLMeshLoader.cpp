@@ -61,7 +61,7 @@ int HitEnemy3 = 0;
 int HitEnemy4 = 0;
 int HitEnemy5 = 0;
 int HitEnemy6 = 0;
-
+bool lastDir = true;
 GLuint tex;
 char title[] = "3D Model Loader Sample";
 void Anim();
@@ -799,8 +799,14 @@ void myKeyboard(unsigned char button, int x, int y)
 			HeroX += 1;
 		}
 		Eye.x = HeroX + 1;
-		Eye.z = HeroZ+20;
-		At.x = HeroX+1;
+		if (lastDir) {
+			Eye.z = HeroZ + 20;
+
+		}
+		else {
+			Eye.z = HeroZ - 20;
+
+		}		At.x = HeroX+1;
 		At.y = 3;
 		At.z = HeroZ;
 		glLoadIdentity();
@@ -816,7 +822,14 @@ void myKeyboard(unsigned char button, int x, int y)
 			HeroX -= 1;
 		}
 		Eye.x = HeroX - 1;
-		Eye.z = HeroZ+20;
+		if(lastDir){
+			Eye.z = HeroZ + 20;
+
+		}
+		else {
+			Eye.z = HeroZ - 20;
+
+		}
 		At.x = HeroX-1;
 		At.y = 3;
 		At.z = HeroZ;
@@ -825,6 +838,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		break;
 
 	case 's':
+		lastDir = false;
 		LookForward = true;
 		LookLeft = false;
 		LookRight = false;
@@ -850,6 +864,7 @@ void myKeyboard(unsigned char button, int x, int y)
 
 			break;
 	case 'w':
+		lastDir = true;
 		LookForward = false;;
 		LookLeft = false;
 		LookRight = false;
