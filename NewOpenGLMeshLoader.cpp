@@ -810,7 +810,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		At.y = 3;
 		At.z = HeroZ;
 		glLoadIdentity();
-		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+		gluLookAt(Eye.x, 70, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 
 		break;
 	case'a':
@@ -834,7 +834,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		At.y = 3;
 		At.z = HeroZ;
 		glLoadIdentity();
-		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+		gluLookAt(Eye.x, 70, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
 
 	case 's':
@@ -858,7 +858,7 @@ void myKeyboard(unsigned char button, int x, int y)
 			At.y = 3;
 			At.z = HeroZ;
 			glLoadIdentity();
-			gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+			gluLookAt(Eye.x, 70, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 			break;
 
 
@@ -870,7 +870,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookRight = false;
 		LookBackward = true;
 
-		if (HeroZ != -38) {
+		if (HeroZ != -338) {
 			if (HeroZ >= 29 || HeroZ <= 21) {
 				HeroZ -= 1;
 			}
@@ -885,7 +885,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		At.y = 3;
 		At.z = HeroZ;
 		glLoadIdentity();
-		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+		gluLookAt(Eye.x, 70, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
 	case'f':
 		if (!WepFire) {
