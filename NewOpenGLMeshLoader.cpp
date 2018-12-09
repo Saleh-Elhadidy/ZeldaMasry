@@ -21,18 +21,46 @@ int Enemy1BackForward = 0;		//Flag for Choose if the Enemy moving forward or bac
 int Enemy2BackForward = 0;
 int Enemy3BackForward = 0;
 int Enemy4BackForward = 0;
+int Enemy5BackForward = 0;
+int Enemy6BackForward = 0;
 
-float MoveEnemy1X = 5;
-float MoveEnemy2X = 5;
-float MoveEnemy3X = 5;
-float MoveEnemy4X = 12;
+float MoveEnemy1X = -35;
+float MoveEnemy2X = -38;
+float MoveEnemy3X = -35;
+float MoveEnemy4X = -25;
+float MoveEnemy5X = 25;
+float MoveEnemy6X = -27;
 
-float MoveEnemy1Z = 6;
-float MoveEnemy2Z = 3;
-float MoveEnemy3Z = 9;
-float MoveEnemy4Z = 4;
+float MoveEnemy1Z = -35;
+float MoveEnemy2Z = 39;
+float MoveEnemy3Z = 34;
+float MoveEnemy4Z = -35;
+float MoveEnemy5Z = -35;
+float MoveEnemy6Z = 21;
 
 int RotationAngleEnemi1 = 0;
+int RotationAngleEnemi2 =90;
+int RotationAngleEnemi3 = 90;
+int RotationAngleEnemi4 = 0;
+int RotationAngleEnemi5 = 0;
+int RotationAngleEnemi6 = 90;
+
+//Eenemy and Hero collision variables
+int Collided = 0;
+
+int countEnemy1 = 0;
+int countEnemy2 = 0;
+int countEnemy3 = 0;
+int countEnemy4 = 0;
+int countEnemy5 = 0;
+int countEnemy6 = 0;
+
+int HitEnemy1 = 0;
+int HitEnemy2 = 0;
+int HitEnemy3 = 0;
+int HitEnemy4 = 0;
+int HitEnemy5 = 0;
+int HitEnemy6 = 0;
 
 GLuint tex;
 char title[] = "3D Model Loader Sample";
@@ -61,8 +89,9 @@ public:
 	}
 };
 
-Vector Eye(20, 30, 30);
-Vector At(20, 0, -20);
+
+Vector Eye(0, 80, -50);
+Vector At(0, -120, -70);
 Vector Up(0, 1, 0);
 
 int cameraZoom = 0;
@@ -79,6 +108,10 @@ Model_3DS model_enemy2;
 Model_3DS model_enemy3;
 Model_3DS model_enemy4;
 Model_3DS model_baby;
+Model_3DS model_cage;
+Model_3DS model_stone;
+Model_3DS model_hg;
+
 // Textures
 GLTexture tex_ground;
 GLTexture tex_bricks;
@@ -264,13 +297,13 @@ void myDisplay(void)
 	RenderGround2();
 	// Draw Tree Model
 	glPushMatrix();
-	glTranslatef(10, 0, 0);
+	glTranslatef(20, 0, -10);
 	glScalef(0.7, 0.7, 0.7);
 	model_tree.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslated(0, 6, 0);
+	glTranslated(0, 6, -70);
 	model_princess.Draw();
 	glPopMatrix();
 
@@ -295,7 +328,7 @@ void myDisplay(void)
 		glPushMatrix();
 		glColor3f(1, 0, 0);
 		glTranslated(WepX, 1, WepZ);
-		glScaled(0.35, 0.35, 0.35);
+		glScaled(1, 0.6, 1);
 		glRotated(rotAngleWep, 0, 1, 0);
 		model_weapon.Draw();
 		glPopMatrix();
@@ -378,6 +411,7 @@ void myDisplay(void)
 
 	glPushMatrix();
 	glTranslated(-2, 0, -5);
+
 	glPushMatrix();
 	glTranslatef(40, 0, 30);
 	glScalef(0.7, 0.7, 0.7);
@@ -425,17 +459,260 @@ void myDisplay(void)
 	//--------------------------------
 
 
+
+		//wall of trees vol.2
+
+	glPushMatrix();
+	glTranslated(-35, 0, 20);
+	glRotatef(90.f, 0, 1, 0);
+
+
+	glPushMatrix();
+	glTranslatef(40, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(35, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(30, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(25, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(20, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(15, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(10, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//--------------------------------
+
+
+
+		//wall of trees vol.2 round 2
+
+	glPushMatrix();
+	glTranslated(-30, 0, 20);
+	glRotatef(90.f, 0, 1, 0);
+
+
+	glPushMatrix();
+	glTranslatef(40, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(35, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(30, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(25, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(20, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(15, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(10, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//--------------------------------
+
+
+
+		//draw hg
+
+	glPushMatrix();
+	glTranslatef(22, 5, -20);
+	glScaled(0.008, 0.008, 0.008);
+	model_hg.Draw();
+	glPopMatrix();
+
+
+
+	//========================
+
+	//draw stones
+
+	glPushMatrix();
+	glTranslatef(38, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(33, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(28, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(23, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(18, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(13, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(8, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(3, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-2, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-7, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-12, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-17, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-22, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-27, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-32, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-37, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+
+
+
+	//----------------------------------
+
+	//draw cage
+
+	glPushMatrix();
+	glTranslatef(-15, 15, -54);
+	glScaled(0.2, 0.2, 0.2);
+	model_cage.Draw();
+	glPopMatrix();
+
+
+
+
 		//draw baby
 
 	glPushMatrix();
-	glTranslatef(20, 0,-15);
-	glScaled(0.005,0.005,0.005);
+	glTranslatef(-20, 15, -44);
+	glScaled(0.2, 0.2, 0.2);
 	model_baby.Draw();
 	glPopMatrix();
 
 	//draw dragon
 	glPushMatrix();
-	glTranslatef(25, 0, 3);
+	glTranslatef(-10, 0, -60);
 	glScaled(4.0, 4.0, 4.0);
 	//glRotatef(90.f, 1, 0, 0);
 	glColor3f(1.0f, 1.0f, 1.0f);
@@ -444,38 +721,61 @@ void myDisplay(void)
 	glPopMatrix();
 
 	//Draw enemies
+	if (HitEnemy1==0) {
+		glPushMatrix();
+		glTranslated(MoveEnemy1X, 0, MoveEnemy1Z);
+		glRotated(RotationAngleEnemi1, 0, 1, 0);
+		glScaled(0.07, 0.07, 0.07);
+		model_enemy1.Draw();
+		glPopMatrix();
+	}
+	
 
-	glPushMatrix();
-	glTranslated(MoveEnemy1X, 0, MoveEnemy1Z);
-	glRotated(RotationAngleEnemi1, 0, 1, 0);
-	glScaled(0.2, 0.2, 0.2);
-	model_enemy1.Draw();
-	glPopMatrix();
+	if (HitEnemy2 == 0) {
+		glPushMatrix();
+		glTranslated(MoveEnemy2X, 0, MoveEnemy2Z);
+		glRotated(RotationAngleEnemi2, 0, 1, 0);
+		glScaled(0.07, 0.07, 0.07);
+		model_enemy1.Draw();
+		glPopMatrix();
+	}
+	
+	if (HitEnemy3 == 0) {
+		glPushMatrix();
+		glTranslated(MoveEnemy3X, 0, MoveEnemy3Z);
+		glRotated(RotationAngleEnemi3, 0, 1, 0);
+		glScaled(0.07, 0.07, 0.07);
+		model_enemy1.Draw();
+		glPopMatrix();
+	}
 
-	//glPushMatrix();
-	//glTranslated(MoveEnemy2X, 0, MoveEnemy2Z);
-	//glScaled(0.07, 0.07, 0.07);
-	//model_enemy2.Draw();
-	//glPopMatrix();
+	if (HitEnemy4 == 0) {
+		glPushMatrix();
+		glTranslated(MoveEnemy4X, 0, MoveEnemy4Z);
+		glRotated(RotationAngleEnemi4, 0, 1, 0);
+		glScaled(0.07, 0.07, 0.07);
+		model_enemy1.Draw();
+		glPopMatrix();
+	}
+	
+	if (HitEnemy5 == 0) {
+		glPushMatrix();
+		glTranslated(MoveEnemy5X, 0, MoveEnemy5Z);
+		glRotated(RotationAngleEnemi5, 0, 1, 0);
+		glScaled(0.07, 0.07, 0.07);
+		model_enemy1.Draw();
+		glPopMatrix();
+	}
+	
+	if (HitEnemy6 == 0) {
+		glPushMatrix();
+		glTranslated(MoveEnemy6X, 0, MoveEnemy6Z);
+		glRotated(RotationAngleEnemi6, 0, 1, 0);
+		glScaled(0.07, 0.07, 0.07);
+		model_enemy1.Draw();
+		glPopMatrix();
+	}
 
-	//glPushMatrix();
-	//glTranslated(MoveEnemy3X, 0, MoveEnemy3Z);
-	//glScaled(0.07, 0.07, 0.07);
-	//model_enemy3.Draw();
-	//glPopMatrix();
-
-	//glPushMatrix();
-	//glTranslated(MoveEnemy4X, 0, MoveEnemy4Z);
-	//glScaled(0.07, 0.07, 0.07);
-	//model_enemy4.Draw();
-	//glPopMatrix();
-
-	/*glPushMatrix();
-	glTranslated(Eye.x,Eye.y,Eye.z);
-	glScaled(0.02, 0.02, 0.02);
-	glTranslated(50, 0, -450);
-	model_baby.Draw();
-	glPopMatrix();*/
 
 	glutSwapBuffers();
 }
@@ -487,24 +787,27 @@ void myKeyboard(unsigned char button, int x, int y)
 {
 	switch (button)
 	{
-	case 'a':
+	case 'd':
 		LookLeft = true;
 		LookRight = false;
 		LookForward = false;
 		LookBackward = false;
-		if (HeroX != 38) {
+		if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
 			HeroX += 1;
 		}
-		Eye.x = HeroX-20;
-		Eye.z = HeroZ ;
-		At.x = HeroX;
+		if (HeroX != 38 && HeroX < 5) {
+			HeroX += 1;
+		}
+		Eye.x = HeroX + 1;
+		Eye.z = HeroZ+20;
+		At.x = HeroX+1;
 		At.y = 3;
 		At.z = HeroZ;
 		glLoadIdentity();
-		gluLookAt(Eye.x, 12, Eye.z, At.x, At.y, At.z, 0, 1, 0);
-		
+		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+
 		break;
-	case 'd':
+	case'a':
 		LookLeft = false;
 		LookBackward = false;
 		LookForward = false;
@@ -512,37 +815,54 @@ void myKeyboard(unsigned char button, int x, int y)
 		if (HeroX != -38) {
 			HeroX -= 1;
 		}
-		Eye.x = HeroX+20;
-		Eye.z = HeroZ;
-		At.x = HeroX;
+		Eye.x = HeroX - 1;
+		Eye.z = HeroZ+20;
+		At.x = HeroX-1;
 		At.y = 3;
 		At.z = HeroZ;
 		glLoadIdentity();
-		gluLookAt(Eye.x, 12, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
-	case 'w':
+
+	case 's':
 		LookForward = true;
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = false;
 		if (HeroZ != 38) {
-			HeroZ += 1;
-		}
-		Eye.x = HeroX;
-		Eye.z = HeroZ-20;
-		At.x = HeroX;
-		At.y = 3;
-		At.z = HeroZ;
-		glLoadIdentity();
-		gluLookAt(Eye.x,12,Eye.z,At.x,At.y,At.z, 0, 1, 0);
-		break;
-	case 's':
+			if ((HeroZ <= 20 || HeroZ >= 28)) {
+				HeroZ += 1;
+			}
+
+			if (HeroX < 5) {
+				HeroZ += 1;
+			}
+
+			Eye.x = HeroX;
+			Eye.z = HeroZ - 20;
+			At.x = HeroX;
+			At.y = 3;
+			At.z = HeroZ;
+			glLoadIdentity();
+			gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+			break;
+
+
+			break;
+	case 'w':
 		LookForward = false;;
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = true;
+
 		if (HeroZ != -38) {
-			HeroZ -= 1;
+			if (HeroZ >= 29 || HeroZ <= 21) {
+				HeroZ -= 1;
+			}
+
+			if (HeroX < 5) {
+				HeroZ -= 1;
+			}
 		}
 		Eye.x = HeroX;
 		Eye.z = HeroZ + 20;
@@ -550,7 +870,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		At.y = 3;
 		At.z = HeroZ;
 		glLoadIdentity();
-		gluLookAt(Eye.x, 12, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
 	case'f':
 		if (!WepFire) {
@@ -576,9 +896,10 @@ void myKeyboard(unsigned char button, int x, int y)
 		break;
 	default:
 		break;
-	}
+		}
 
-	glutPostRedisplay();
+		glutPostRedisplay();
+	}
 }
 
 //=======================================================================
@@ -591,12 +912,14 @@ void myMotion(int x, int y)
 	if (cameraZoom - y > 0)
 	{
 		//Eye.x += -0.1;
-		Eye.z += -1;
+
+		Eye.z += -5;
 	}
 	else
 	{
 		//Eye.x += 0.1;
-		Eye.z += 1;
+
+		Eye.z += 5;
 	}
 
 	cameraZoom = y;
@@ -611,7 +934,11 @@ void myMotion(int x, int y)
 	glutPostRedisplay();	//Re-draw scene 
 }
 
-
+void testTimer(int val) {
+	Collided = 0;
+	glutPostRedisplay();						// redraw 		
+	glutTimerFunc(5000, testTimer, 0);
+}
 //=======================================================================
 // Mouse Function
 //=======================================================================
@@ -626,19 +953,130 @@ void myMouse(int button, int state, int x, int y)
 }
 void Anim() {
 
+	// Motions functions for Zombies
+	//motion gunctions for Enemy 1
 	if (Enemy1BackForward == 0)
 		MoveEnemy1Z += 0.1;
 	else
 		MoveEnemy1Z -= 0.1;
 
-	if (MoveEnemy1Z >= 35) {
+	if (MoveEnemy1Z >= 10) {
 		Enemy1BackForward = 1;
+		MoveEnemy1X = -31;
 		RotationAngleEnemi1 = -180;
 	}
 	else if (MoveEnemy1Z <= -35) {
+
 		Enemy1BackForward = 0;
+		MoveEnemy1X = -35;
 		RotationAngleEnemi1 = 0;
 	}
+
+	//motion functions for Enemy 2
+	if (Enemy2BackForward == 0)
+		MoveEnemy2X += 0.1;
+	else
+		MoveEnemy2X -= 0.1;
+
+	if (MoveEnemy2X >= 35) {
+		Enemy2BackForward = 1;
+		MoveEnemy2Z = 35;
+		RotationAngleEnemi2 = -90;
+	}
+	else if (MoveEnemy2X <= -35) {
+		MoveEnemy2Z = 39;
+		Enemy2BackForward = 0;
+		RotationAngleEnemi2 = 90;
+	}
+	//motion functions for Enemy 3
+	if (Enemy3BackForward == 0)
+		MoveEnemy3X += 0.2;
+	else
+		MoveEnemy3X -= 0.2;
+
+	if (MoveEnemy3X >= 35) {
+		Enemy3BackForward = 1;
+		MoveEnemy3Z = 30;
+		RotationAngleEnemi3 = -90;
+	}
+	else if (MoveEnemy3X <= -35) {
+		Enemy3BackForward = 0;
+		MoveEnemy3Z = 34;
+		RotationAngleEnemi3 = 90;
+	}
+	//motion gunctions for Enemy 4
+	if (Enemy4BackForward == 0)
+		MoveEnemy4Z += 0.3;
+	else
+		MoveEnemy4Z -= 0.2;
+
+	if (MoveEnemy4Z >= 10) {
+		Enemy4BackForward = 1;
+		MoveEnemy4X = -21;
+		RotationAngleEnemi4 = -180;
+	}
+	else if (MoveEnemy4Z <= -35) {
+		Enemy4BackForward = 0;
+		MoveEnemy4X = -25;
+		RotationAngleEnemi4 = 0;
+	}
+	//motion gunctions for Enemy 5
+	if (Enemy5BackForward == 0)
+		MoveEnemy5Z += 0.3;
+	else
+		MoveEnemy5Z -= 0.2;
+
+	if (MoveEnemy5Z >= 10) {
+		Enemy5BackForward = 1;
+		MoveEnemy5X = 21;
+		RotationAngleEnemi5 = -180;
+	}
+	else if (MoveEnemy5Z <= -35) {
+		Enemy5BackForward = 0;
+		MoveEnemy5X = 25;
+		RotationAngleEnemi5 = 0;
+	}
+	//motion gunctions for Enemy 6
+	if (Enemy6BackForward == 0)
+		MoveEnemy6X += 0.6;
+	else
+		MoveEnemy6X -= 0.4;
+
+	if (MoveEnemy6X >= 35) {
+		Enemy6BackForward = 1;
+		MoveEnemy6Z = 17;
+		RotationAngleEnemi6 = -90;
+	}
+	else if (MoveEnemy6X <= -35) {
+		Enemy6BackForward = 0;
+		MoveEnemy6Z = 21;
+		RotationAngleEnemi6 = 90;
+	}
+	//Collision between enemy and Hero
+	if ((MoveEnemy1X <= HeroX + 2 && MoveEnemy1X >= HeroX - 2) && (MoveEnemy1Z <= HeroZ + 2 && MoveEnemy1Z >= HeroZ - 2)) {
+		Collided = 1; //to be changed to zero at the heakth bar
+	}
+	if ((MoveEnemy2X <= HeroX+2 && MoveEnemy2X >= HeroX-2) && (MoveEnemy2Z<=HeroZ+2 && MoveEnemy2Z >= HeroZ - 2)) {
+		Collided = 1; //to be changed to zero at the heakth bar
+	}
+	if ((MoveEnemy3X <= HeroX + 2 && MoveEnemy3X >= HeroX - 2) && (MoveEnemy3Z <= HeroZ + 2 && MoveEnemy3Z >= HeroZ - 2)) {
+		Collided = 1; //to be changed to zero at the heakth bar
+	}
+	if ((MoveEnemy4X <= HeroX + 2 && MoveEnemy4X >= HeroX - 2) && (MoveEnemy4Z <= HeroZ + 2 && MoveEnemy4Z >= HeroZ - 2)) {
+		Collided = 1; //to be changed to zero at the heakth bar
+	}
+	if ((MoveEnemy5X <= HeroX + 2 && MoveEnemy5X >= HeroX - 2) && (MoveEnemy5Z <= HeroZ + 2 && MoveEnemy5Z >= HeroZ - 2)) {
+		Collided = 1; //to be changed to zero at the heakth bar
+	}
+	if ((MoveEnemy6X <= HeroX + 2 && MoveEnemy6X >= HeroX - 2) && (MoveEnemy6Z <= HeroZ + 2 && MoveEnemy6Z >= HeroZ - 2)) {
+		Collided = 1; //to be changed to zero at the heakth bar
+	}
+
+	//printf("%d\n Collided:", Collided);
+
+
+
+	///////WEAPON///////////
 	rotAngleWep += 5;
 	if (rotAngleWep == 720) {
 		rotAngleWep = 0;
@@ -646,22 +1084,93 @@ void Anim() {
 	if (WepFire) {
 		if (WepX > 39 || WepX < -39 || WepZ> 39 || WepZ < -39) {
 			WepFire = false;
+			
 		}
 		else {
 			if (bulletDirection == 1) {
-				WepZ += 0.25;
+				WepZ += 0.65;
 			}
 			else if (bulletDirection == 2) {
-				WepZ -= 0.25;
+				WepZ -= 0.65;
 			}
 			else if (bulletDirection == 3) {
-				WepX += 0.25;
+				WepX += 0.65;
 			}
 			else if (bulletDirection == 4) {
-				WepX -= 0.25;
+				WepX -= 0.65;
 			}
 		}
 	}
+
+	//Bullet collisions with enemies
+	if ((WepX <= MoveEnemy1X + 3 && WepX >= MoveEnemy1X - 3) && (WepZ <= MoveEnemy1Z + 3 && WepZ >= MoveEnemy1Z - 3)) {
+		if (countEnemy1 >= 2)
+			HitEnemy1 = 1;
+		if (countEnemy1 == 0)
+			countEnemy1 = 1;
+		if (countEnemy1 == 1)
+			countEnemy1 = 2;
+		WepFire = false;
+		WepX = HeroX;
+		WepZ = HeroZ;
+	}
+
+	if ((WepX <= MoveEnemy2X + 3 && WepX >= MoveEnemy2X-3) && (WepZ <= MoveEnemy2Z + 3 && WepZ >= MoveEnemy2Z - 3)) {
+		if(countEnemy2 >=2)
+			HitEnemy2=1; 
+		if(countEnemy2==0)
+			countEnemy2=1;
+		if (countEnemy2 == 1)
+			countEnemy2 = 2;
+		WepFire = false;
+		WepX = HeroX;
+		WepZ = HeroZ;
+	}
+	if ((WepX <= MoveEnemy3X + 3 && WepX >= MoveEnemy3X - 3) && (WepZ <= MoveEnemy3Z + 3 && WepZ >= MoveEnemy3Z - 3)) {
+		if (countEnemy3 >= 2)
+			HitEnemy3 = 1;
+		if (countEnemy3 == 0)
+			countEnemy3 = 1;
+		if (countEnemy3 == 1)
+			countEnemy3 = 2;
+		WepFire = false;
+		WepX = HeroX;
+		WepZ = HeroZ;
+	}
+	if ((WepX <= MoveEnemy4X + 2 && WepX >= MoveEnemy4X - 2.5) && (WepZ <= MoveEnemy4Z + 2 && WepZ >= MoveEnemy4Z - 2.5)) {
+		if (countEnemy4 >= 2)
+			HitEnemy4 = 1;
+		if (countEnemy4 == 0)
+			countEnemy4 = 1;
+		if (countEnemy4 == 1)
+			countEnemy4 = 2;
+		WepFire = false;
+		WepX = HeroX;
+		WepZ = HeroZ;
+	}
+	if ((WepX <= MoveEnemy5X + 3 && WepX >= MoveEnemy5X - 3) && (WepZ <= MoveEnemy5Z + 3 && WepZ >= MoveEnemy5Z - 3)) {
+		if (countEnemy5 >= 2)
+			HitEnemy5 = 1;
+		if (countEnemy5 == 0)
+			countEnemy5 = 1;
+		if (countEnemy5 == 1)
+			countEnemy5 = 2;
+		WepFire = false;
+		WepX = HeroX;
+		WepZ = HeroZ;
+	}
+	if ((WepX <= MoveEnemy6X + 3 && WepX >= MoveEnemy6X - 3) && (WepZ <= MoveEnemy6Z + 3 && WepZ >= MoveEnemy6Z - 3)) {
+		if (countEnemy6 >= 2)
+			HitEnemy6 = 1;
+		if (countEnemy6 == 0)
+			countEnemy6 = 1;
+		if (countEnemy6 == 1)
+			countEnemy6 = 2;
+		WepFire = false;
+		WepX = HeroX;
+		WepZ = HeroZ;
+	}
+	//printf("%f\n weapon", WepX);
 	glutPostRedisplay();
 }
 
@@ -707,7 +1216,12 @@ void LoadAssets()
 	//model_enemy2.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
-	model_baby.Load("Models/hg/hourgalss.3ds");
+
+	model_baby.Load("Models/baby/baby.3ds");
+	model_cage.Load("Models/birdcage/Cage.3ds");
+	model_stone.Load("Models/stone/stone podest 3DS.3ds");
+	model_hg.Load("Models/hg/hourgalss.3ds");
+
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
@@ -739,6 +1253,7 @@ void main(int argc, char** argv)
 	glutMouseFunc(myMouse);
 
 	glutReshapeFunc(myReshape);
+	glutTimerFunc(100, testTimer, 0);		//call the timer function
 
 	myInit();
 
