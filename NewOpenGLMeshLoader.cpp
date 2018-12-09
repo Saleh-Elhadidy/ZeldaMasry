@@ -76,6 +76,7 @@ int cameraZoom = 0;
 Model_3DS model_house;
 Model_3DS model_tree;
 Model_3DS model_boss;
+Model_3DS model_princess;
 Model_3DS model_weapon;
 Model_3DS model_dragon;
 Model_3DS model_enemy1;
@@ -274,6 +275,10 @@ void myDisplay(void)
 	model_tree.Draw();
 	glPopMatrix();
 
+	glPushMatrix();
+	glTranslated(0, 6, 0);
+	model_princess.Draw();
+	glPopMatrix();
 
 
 	glPushMatrix();
@@ -428,11 +433,11 @@ void myDisplay(void)
 
 		//draw baby
 
-	glPushMatrix();
-	glTranslatef(-20, 15, -44);
-	glScaled(0.2, 0.2, 0.2);
-	model_baby.Draw();
-	glPopMatrix();
+	//glPushMatrix();
+	//glTranslatef(-20, 15, -44);
+	//glScaled(0.2, 0.2, 0.2);
+	//model_baby.Draw();
+	//glPopMatrix();
 
 	//draw dragon
 	glPushMatrix();
@@ -677,13 +682,14 @@ void LoadAssets()
 	model_house.Load("Models/house/house.3DS");
 	model_tree.Load("Models/Tree/Tree1.3ds");
 	model_boss.Load("Models/Muham/Muhammer.3DS");
+	model_princess.Load("Models/tron/tron.3DS");
 	model_weapon.Load("Models/sword/sword/shurkin.3ds");
 	model_dragon.Load("Models/blooddragon/blooddragon.3ds");
 	model_enemy1.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy2.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
-	model_baby.Load("Models/baby/baby.3ds");
+	//model_baby.Load("Models/baby/baby.3ds");
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
