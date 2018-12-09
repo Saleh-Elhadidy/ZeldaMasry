@@ -62,6 +62,12 @@ int HitEnemy3 = 0;
 int HitEnemy4 = 0;
 int HitEnemy5 = 0;
 int HitEnemy6 = 0;
+
+//Second field varibales 
+float DragonX = 0;
+float DragonZ = -80;
+int dragonMovement = 0;
+float DragonRoationAngle = 90;
 bool lastDir = true;
 GLuint tex;
 char title[] = "3D Model Loader Sample";
@@ -730,11 +736,11 @@ void myDisplay(void)
 
 	//draw dragon
 	glPushMatrix();
-	glTranslatef(-10, 0, -60);
+	glTranslatef(DragonX, 0, DragonZ);
 	glScaled(4.0, 4.0, 4.0);
 	//glRotatef(90.f, 1, 0, 0);
 	glColor3f(1.0f, 1.0f, 1.0f);
-	glRotated(90, 0, 1, 0);
+	glRotated(DragonRoationAngle, 0, 1, 0);
 	model_dragon.Draw();
 	glPopMatrix();
 
@@ -968,7 +974,25 @@ void myMotion(int x, int y)
 }
 
 void testTimer(int val) {
-	Collided = 0;
+	DragonZ= (rand() % 120) * -1 ;
+	DragonX = rand() % 40 ;
+	printf("%f\n Dragon X :", DragonX);
+	printf("%f\n Dragon Z :", DragonZ);
+
+	if (DragonZ > -40)
+		DragonZ = -50;
+
+	if (dragonMovement == 0)
+	{
+		DragonRoationAngle = 180;
+		DragonX = DragonX * -1;
+			dragonMovement = 1;
+}
+	else
+	{
+		DragonRoationAngle = 90;
+		dragonMovement = 0;
+	}
 	glutPostRedisplay();						// redraw 		
 	glutTimerFunc(5000, testTimer, 0);
 }
@@ -1253,7 +1277,7 @@ void LoadAssets()
 	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
 
-	model_baby.Load("Models/baby/baby.3ds");
+	//model_baby.Load("Models/baby/baby.3ds");
 	model_cage.Load("Models/birdcage/Cage.3ds");
 	model_stone.Load("Models/stone/stone podest 3DS.3ds");
 	model_hg.Load("Models/hg/hourgalss.3ds");
