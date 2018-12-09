@@ -69,6 +69,7 @@ bool donePower1 = false; // Powers are activated or not yet
 bool donePower2 = false; 
 int timer1Count = 0;
 bool freeze = false;
+bool cameraType = false;
 GLuint tex;
 char title[] = "3D Model Loader Sample";
 void Anim();
@@ -1007,12 +1008,12 @@ void myMotion(int x, int y)
 	glutPostRedisplay();	//Re-draw scene 
 }
 
-void testTimer(int val) {
+void timerPower(int val) {
 	if (timer1Count < 2) {
 		
 		timer1Count++;
 		glutPostRedisplay();						// redraw 		
-		glutTimerFunc(4000, testTimer, 0);
+		glutTimerFunc(4000, timerPower, 0);
 	}
 	else {
 		donePower1 = true;
@@ -1038,7 +1039,7 @@ void Anim() {
 	if (HeroX == 22 && HeroZ == -20 && !powerup2) {
 		powerup2 = true;
 		freeze = true;
-		testTimer(0);
+		timerPower(0);
 	}
 	if (HeroX == -22 && HeroZ == -20 && !powerup1) {
 		powerup1 = true;
@@ -1351,7 +1352,6 @@ void main(int argc, char** argv)
 	glutMouseFunc(myMouse);
 
 	glutReshapeFunc(myReshape);
-	//glutTimerFunc(100, testTimer, 0);		//call the timer function
 
 	myInit();
 
