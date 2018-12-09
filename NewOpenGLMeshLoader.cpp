@@ -89,6 +89,7 @@ public:
 	}
 };
 
+
 Vector Eye(0, 80, -50);
 Vector At(0, -120, -70);
 Vector Up(0, 1, 0);
@@ -107,6 +108,10 @@ Model_3DS model_enemy2;
 Model_3DS model_enemy3;
 Model_3DS model_enemy4;
 Model_3DS model_baby;
+Model_3DS model_cage;
+Model_3DS model_stone;
+Model_3DS model_hg;
+
 // Textures
 GLTexture tex_ground;
 GLTexture tex_bricks;
@@ -293,7 +298,7 @@ void myDisplay(void)
 	RenderGround2();
 	// Draw Tree Model
 	glPushMatrix();
-	glTranslatef(10, 0, 0);
+	glTranslatef(20, 0, -10);
 	glScalef(0.7, 0.7, 0.7);
 	model_tree.Draw();
 	glPopMatrix();
@@ -407,6 +412,7 @@ void myDisplay(void)
 
 	glPushMatrix();
 	glTranslated(-2, 0, -5);
+
 	glPushMatrix();
 	glTranslatef(40, 0, 30);
 	glScalef(0.7, 0.7, 0.7);
@@ -454,13 +460,256 @@ void myDisplay(void)
 	//--------------------------------
 
 
+
+		//wall of trees vol.2
+
+	glPushMatrix();
+	glTranslated(-35, 0, 20);
+	glRotatef(90.f, 0, 1, 0);
+
+
+	glPushMatrix();
+	glTranslatef(40, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(35, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(30, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(25, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(20, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(15, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(10, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//--------------------------------
+
+
+
+		//wall of trees vol.2 round 2
+
+	glPushMatrix();
+	glTranslated(-30, 0, 20);
+	glRotatef(90.f, 0, 1, 0);
+
+
+	glPushMatrix();
+	glTranslatef(40, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(35, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(30, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(25, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(20, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(15, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(10, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//--------------------------------
+
+
+
+		//draw hg
+
+	glPushMatrix();
+	glTranslatef(22, 5, -20);
+	glScaled(0.008, 0.008, 0.008);
+	model_hg.Draw();
+	glPopMatrix();
+
+
+
+	//========================
+
+	//draw stones
+
+	glPushMatrix();
+	glTranslatef(38, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(33, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(28, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(23, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(18, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(13, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(8, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(3, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-2, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-7, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-12, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-17, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-22, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-27, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-32, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-37, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+
+
+
+	//----------------------------------
+
+	//draw cage
+
+	glPushMatrix();
+	glTranslatef(-15, 15, -54);
+	glScaled(0.2, 0.2, 0.2);
+	model_cage.Draw();
+	glPopMatrix();
+
+
+
+
 		//draw baby
 
-	//glPushMatrix();
-	//glTranslatef(-20, 15, -44);
-	//glScaled(0.2, 0.2, 0.2);
-	//model_baby.Draw();
-	//glPopMatrix();
+	glPushMatrix();
+	glTranslatef(-20, 15, -44);
+	glScaled(0.2, 0.2, 0.2);
+	model_baby.Draw();
+	glPopMatrix();
 
 	//draw dragon
 	glPushMatrix();
@@ -539,23 +788,23 @@ void myKeyboard(unsigned char button, int x, int y)
 {
 	switch (button)
 	{
-	case 'w':
-		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-		break;
 	case 'r':
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		break;
-	case 'g':
+	case 'd':
 		LookLeft = true;
 		LookRight = false;
 		LookForward = false;
 		LookBackward = false;
-		if (HeroX != 38) {
+		if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
+			HeroX += 1;
+		}
+		if (HeroX != 38 && HeroX < 5) {
 			HeroX += 1;
 		}
 		printf("The location is (g movment) %d\n", HeroX);
 		break;
-	case 'h':
+	case 'a':
 		LookLeft = false;
 		LookBackward = false;
 		LookForward = false;
@@ -565,24 +814,38 @@ void myKeyboard(unsigned char button, int x, int y)
 		}
 		printf("The location is (h movment) %d\n", HeroX);
 		break;
-	case 'z':
+	case 's':
 		LookForward = true;
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = false;
-		if (HeroZ != 38) {
+		if(HeroZ != 38){
+		if (( HeroZ <= 20 || HeroZ >= 28 )) {
 			HeroZ += 1;
 		}
+
+		if ( HeroX < 5) {
+			HeroZ += 1;
+		}
+		}
+
 		printf("The location is (z movment) %d\n", HeroZ);
 
 		break;
-	case 'x':
+	case 'w':
 		LookForward = false;;
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = true;
-		if (HeroZ != -38) {
-			HeroZ -= 1;
+
+		if (HeroZ != -38 ) {
+			if (HeroZ >= 29 || HeroZ <= 21) {
+				HeroZ -= 1;
+			}
+
+			if ( HeroX < 5) {
+				HeroZ -= 1;
+			}
 		}
 		printf("The location is (x movment) %d\n", HeroZ);
 		break;
@@ -625,11 +888,13 @@ void myMotion(int x, int y)
 	if (cameraZoom - y > 0)
 	{
 		//Eye.x += -0.1;
+
 		Eye.z += -5;
 	}
 	else
 	{
 		//Eye.x += 0.1;
+
 		Eye.z += 5;
 	}
 
@@ -926,7 +1191,11 @@ void LoadAssets()
 	//model_enemy2.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
-	//model_baby.Load("Models/baby/baby.3ds");
+	model_baby.Load("Models/baby/baby.3ds");
+	model_cage.Load("Models/birdcage/Cage.3ds");
+	model_stone.Load("Models/stone/stone podest 3DS.3ds");
+	model_hg.Load("Models/hg/hourgalss.3ds");
+
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
