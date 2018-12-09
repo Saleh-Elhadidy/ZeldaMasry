@@ -553,7 +553,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		if (HeroX != 38) {
 			HeroX += 1;
 		}
-		//printf("The location is (g movment) %d\n", HeroX);
+		printf("The location is (g movment) %d\n", HeroX);
 		break;
 	case 'h':
 		LookLeft = false;
@@ -563,7 +563,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		if (HeroX != -38) {
 			HeroX -= 1;
 		}
-		//printf("The location is (h movment) %d\n", HeroX);
+		printf("The location is (h movment) %d\n", HeroX);
 		break;
 	case 'z':
 		LookForward = true;
@@ -573,7 +573,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		if (HeroZ != 38) {
 			HeroZ += 1;
 		}
-		//printf("The location is (z movment) %d\n", HeroZ);
+		printf("The location is (z movment) %d\n", HeroZ);
 
 		break;
 	case 'x':
@@ -584,7 +584,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		if (HeroZ != -38) {
 			HeroZ -= 1;
 		}
-		//printf("The location is (x movment) %d\n", HeroZ);
+		printf("The location is (x movment) %d\n", HeroZ);
 		break;
 	case'f':
 		if (!WepFire) {
