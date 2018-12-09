@@ -83,6 +83,10 @@ Model_3DS model_enemy2;
 Model_3DS model_enemy3;
 Model_3DS model_enemy4;
 Model_3DS model_baby;
+Model_3DS model_cage;
+Model_3DS model_stone;
+Model_3DS model_hg;
+
 // Textures
 GLTexture tex_ground;
 GLTexture tex_bricks;
@@ -269,7 +273,7 @@ void myDisplay(void)
 	RenderGround2();
 	// Draw Tree Model
 	glPushMatrix();
-	glTranslatef(10, 0, 0);
+	glTranslatef(20, 0, -10);
 	glScalef(0.7, 0.7, 0.7);
 	model_tree.Draw();
 	glPopMatrix();
@@ -431,6 +435,249 @@ void myDisplay(void)
 	//--------------------------------
 
 
+
+		//wall of trees vol.2
+
+	glPushMatrix();
+	glTranslated(-35, 0, 20);
+	glRotatef(90.f, 0, 1, 0);
+
+
+	glPushMatrix();
+	glTranslatef(40, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(35, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(30, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(25, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(20, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(15, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(10, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//--------------------------------
+
+
+
+		//wall of trees vol.2 round 2
+
+	glPushMatrix();
+	glTranslated(-30, 0, 20);
+	glRotatef(90.f, 0, 1, 0);
+
+
+	glPushMatrix();
+	glTranslatef(40, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(35, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(30, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(25, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(20, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(15, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(10, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//--------------------------------
+
+
+
+		//draw hg
+
+	glPushMatrix();
+	glTranslatef(22, 5, -20);
+	glScaled(0.008, 0.008, 0.008);
+	model_hg.Draw();
+	glPopMatrix();
+
+
+
+	//========================
+
+	//draw stones
+
+	glPushMatrix();
+	glTranslatef(38, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(33, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(28, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(23, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(18, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(13, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(8, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(3, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-2, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-7, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-12, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-17, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-22, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-27, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-32, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-37, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+
+
+
+	//----------------------------------
+
+	//draw cage
+
+	glPushMatrix();
+	glTranslatef(-15, 15, -54);
+	glScaled(0.2, 0.2, 0.2);
+	model_cage.Draw();
+	glPopMatrix();
+
+
+
+
 		//draw baby
 
 	glPushMatrix();
@@ -502,7 +749,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
 			HeroX += 1;
 		}
-		if (HeroX != 38 && HeroX < 8) {
+		if (HeroX != 38 && HeroX < 5) {
 			HeroX += 1;
 		}
 		printf("The location is (g movment) %d\n", HeroX);
@@ -527,7 +774,7 @@ void myKeyboard(unsigned char button, int x, int y)
 			HeroZ += 1;
 		}
 
-		if ( HeroX < 7) {
+		if ( HeroX < 5) {
 			HeroZ += 1;
 		}
 		}
@@ -546,7 +793,7 @@ void myKeyboard(unsigned char button, int x, int y)
 				HeroZ -= 1;
 			}
 
-			if ( HeroX < 7) {
+			if ( HeroX < 5) {
 				HeroZ -= 1;
 			}
 		}
@@ -764,6 +1011,10 @@ void LoadAssets()
 	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
 	model_baby.Load("Models/baby/baby.3ds");
+	model_cage.Load("Models/birdcage/Cage.3ds");
+	model_stone.Load("Models/stone/stone podest 3DS.3ds");
+	model_hg.Load("Models/hg/hourgalss.3ds");
+
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
