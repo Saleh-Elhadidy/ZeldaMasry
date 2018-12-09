@@ -827,21 +827,34 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookRight = false;
 		LookForward = false;
 		LookBackward = false;
-		if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
-			HeroX += 1;
-		}
-		if (HeroX != 38 && HeroX < 5) {
-			HeroX += 1;
-		}
 		Eye.x = HeroX + 1;
 		if (lastDir) {
+			LookLeft = true;
+			LookRight = false;
+			LookForward = false;
+			LookBackward = false;
 			Eye.z = HeroZ + 20;
+			if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
+				HeroX += 1;
+			}
+			if (HeroX != 38 && HeroX < 5) {
+				HeroX += 1;
+			}
 
 		}
 		else {
+			LookLeft = false;
+			LookRight = true;
+			LookForward = false;
+			LookBackward = false;
 			Eye.z = HeroZ - 20;
+			if (HeroX != -38) {
+				HeroX -= 1;
+				Eye.x = HeroX - 1;
+			}
 
-		}		At.x = HeroX+1;
+		}		
+		At.x = HeroX+1;
 		At.y = 3;
 		At.z = HeroZ;
 		glLoadIdentity();
@@ -853,17 +866,36 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookBackward = false;
 		LookForward = false;
 		LookRight = true;
-		if (HeroX != -38) {
-			HeroX -= 1;
-		}
-		Eye.x = HeroX - 1;
+
 		if(lastDir){
-			Eye.z = HeroZ + 20;
+			
+			LookRight = true;
+			LookLeft = false;
+			LookBackward = false;
+			LookForward = false;
+			if(HeroX!=-38){
+				Eye.z = HeroZ + 20;
+				HeroX -= 1;
+				Eye.x = HeroX - 1;
+			}
+			
 
 		}
 		else {
-			Eye.z = HeroZ - 20;
-
+			LookRight = false;
+			LookLeft = true;
+			LookBackward = false;
+			LookForward = false;
+			if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
+				Eye.z = HeroZ - 20;
+				HeroX += 1;
+				Eye.x = HeroX - 1;
+			}
+			if (HeroX != 38 && HeroX < 5) {
+				Eye.z = HeroZ - 20;
+				HeroX += 1;
+				Eye.x = HeroX - 1;
+			}
 		}
 		At.x = HeroX-1;
 		At.y = 3;
