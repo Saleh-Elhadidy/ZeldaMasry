@@ -22,17 +22,20 @@ int Enemy2BackForward = 0;
 int Enemy3BackForward = 0;
 int Enemy4BackForward = 0;
 
-float MoveEnemy1X = 5;
-float MoveEnemy2X = 5;
-float MoveEnemy3X = 5;
-float MoveEnemy4X = 12;
+float MoveEnemy1X = -35;
+float MoveEnemy2X = -38;
+float MoveEnemy3X = -35;
+float MoveEnemy4X = -25;
 
-float MoveEnemy1Z = 6;
-float MoveEnemy2Z = 3;
-float MoveEnemy3Z = 9;
-float MoveEnemy4Z = 4;
+float MoveEnemy1Z = -35;
+float MoveEnemy2Z = 39;
+float MoveEnemy3Z = 34;
+float MoveEnemy4Z = -35;
 
 int RotationAngleEnemi1 = 0;
+int RotationAngleEnemi2 =90;
+int RotationAngleEnemi3 = 90;
+int RotationAngleEnemi4 = 0;
 
 GLuint tex;
 char title[] = "3D Model Loader Sample";
@@ -60,10 +63,6 @@ public:
 		z += value;
 	}
 };
-
-//Vector Eye(20, 30, 30);
-//Vector At(20, 0, -20);
-//Vector Up(0, 1, 0);
 
 
 Vector Eye(0, 80, -50);
@@ -276,7 +275,7 @@ void myDisplay(void)
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslated(0, 6, 0);
+	glTranslated(0, 6, -70);
 	model_princess.Draw();
 	glPopMatrix();
 
@@ -442,7 +441,7 @@ void myDisplay(void)
 
 	//draw dragon
 	glPushMatrix();
-	glTranslatef(25, 0, 3);
+	glTranslatef(-10, 0, -60);
 	glScaled(4.0, 4.0, 4.0);
 	//glRotatef(90.f, 1, 0, 0);
 	glColor3f(1.0f, 1.0f, 1.0f);
@@ -455,27 +454,30 @@ void myDisplay(void)
 	glPushMatrix();
 	glTranslated(MoveEnemy1X, 0, MoveEnemy1Z);
 	glRotated(RotationAngleEnemi1, 0, 1, 0);
-	glScaled(0.2, 0.2, 0.2);
+	glScaled(0.07, 0.07, 0.07);
 	model_enemy1.Draw();
 	glPopMatrix();
 
-	//glPushMatrix();
-	//glTranslated(MoveEnemy2X, 0, MoveEnemy2Z);
-	//glScaled(0.07, 0.07, 0.07);
-	//model_enemy2.Draw();
-	//glPopMatrix();
+	glPushMatrix();
+	glTranslated(MoveEnemy2X, 0, MoveEnemy2Z);
+	glRotated(RotationAngleEnemi2, 0, 1, 0);
+	glScaled(0.07, 0.07, 0.07);
+	model_enemy1.Draw();
+	glPopMatrix();
 
-	//glPushMatrix();
-	//glTranslated(MoveEnemy3X, 0, MoveEnemy3Z);
-	//glScaled(0.07, 0.07, 0.07);
-	//model_enemy3.Draw();
-	//glPopMatrix();
+	glPushMatrix();
+	glTranslated(MoveEnemy3X, 0, MoveEnemy3Z);
+	glRotated(RotationAngleEnemi3, 0, 1, 0);
+	glScaled(0.07, 0.07, 0.07);
+	model_enemy1.Draw();
+	glPopMatrix();
 
-	//glPushMatrix();
-	//glTranslated(MoveEnemy4X, 0, MoveEnemy4Z);
-	//glScaled(0.07, 0.07, 0.07);
-	//model_enemy4.Draw();
-	//glPopMatrix();
+	glPushMatrix();
+	glTranslated(MoveEnemy4X, 0, MoveEnemy4Z);
+	glRotated(RotationAngleEnemi4, 0, 1, 0);
+	glScaled(0.07, 0.07, 0.07);
+	model_enemy1.Draw();
+	glPopMatrix();
 
 
 
@@ -589,12 +591,14 @@ void myMotion(int x, int y)
 	if (cameraZoom - y > 0)
 	{
 		//Eye.x += -0.1;
-		Eye.z += -3;
+
+		Eye.z += -5;
 	}
 	else
 	{
 		//Eye.x += 0.1;
-		Eye.z += 3;
+
+		Eye.z += 5;
 	}
 
 	cameraZoom = y;
@@ -623,19 +627,74 @@ void myMouse(int button, int state, int x, int y)
 	}
 }
 void Anim() {
+	// Motions functions for Zombies
+	//motion gunctions for Enemy 1
 	if (Enemy1BackForward == 0)
 		MoveEnemy1Z += 0.1;
 	else
 		MoveEnemy1Z -= 0.1;
 
-	if (MoveEnemy1Z >= 35) {
+	if (MoveEnemy1Z >= 10) {
 		Enemy1BackForward = 1;
+		MoveEnemy1X = -31;
 		RotationAngleEnemi1 = -180;
 	}
 	else if (MoveEnemy1Z <= -35) {
+
 		Enemy1BackForward = 0;
+		MoveEnemy1X = -35;
 		RotationAngleEnemi1 = 0;
 	}
+
+	//motion functions for Enemy 2
+	if (Enemy2BackForward == 0)
+		MoveEnemy2X += 0.1;
+	else
+		MoveEnemy2X -= 0.1;
+
+	if (MoveEnemy2X >= 35) {
+		Enemy2BackForward = 1;
+		MoveEnemy2Z = 35;
+		RotationAngleEnemi2 = -90;
+	}
+	else if (MoveEnemy2X <= -35) {
+		MoveEnemy2Z = 39;
+		Enemy2BackForward = 0;
+		RotationAngleEnemi2 = 90;
+	}
+	//motion functions for Enemy 3
+	if (Enemy3BackForward == 0)
+		MoveEnemy3X += 0.2;
+	else
+		MoveEnemy3X -= 0.2;
+
+	if (MoveEnemy3X >= 35) {
+		Enemy3BackForward = 1;
+		MoveEnemy3Z = 30;
+		RotationAngleEnemi3 = -90;
+	}
+	else if (MoveEnemy3X <= -35) {
+		Enemy3BackForward = 0;
+		MoveEnemy3Z = 34;
+		RotationAngleEnemi3 = 90;
+	}
+	//motion gunctions for Enemy 4
+	if (Enemy4BackForward == 0)
+		MoveEnemy4Z += 0.3;
+	else
+		MoveEnemy4Z -= 0.2;
+
+	if (MoveEnemy4Z >= 10) {
+		Enemy4BackForward = 1;
+		MoveEnemy4X = -21;
+		RotationAngleEnemi4 = -180;
+	}
+	else if (MoveEnemy4Z <= -35) {
+		Enemy4BackForward = 0;
+		MoveEnemy4X = -25;
+		RotationAngleEnemi4 = 0;
+	}
+	///////
 	rotAngleWep += 5;
 	if (rotAngleWep == 720) {
 		rotAngleWep = 0;
