@@ -71,6 +71,7 @@ int cameraZoom = 0;
 Model_3DS model_house;
 Model_3DS model_tree;
 Model_3DS model_boss;
+Model_3DS model_princess;
 Model_3DS model_weapon;
 Model_3DS model_dragon;
 Model_3DS model_enemy1;
@@ -268,6 +269,10 @@ void myDisplay(void)
 	model_tree.Draw();
 	glPopMatrix();
 
+	glPushMatrix();
+	glTranslated(0, 6, 0);
+	model_princess.Draw();
+	glPopMatrix();
 
 
 	glPushMatrix();
@@ -611,6 +616,7 @@ void LoadAssets()
 	model_house.Load("Models/house/house.3DS");
 	model_tree.Load("Models/Tree/Tree1.3ds");
 	model_boss.Load("Models/Muham/Muhammer.3DS");
+	model_princess.Load("Models/tron/tron.3DS");
 	model_weapon.Load("Models/sword/sword/shurkin.3ds");
 	model_dragon.Load("Models/blooddragon/blooddragon.3ds");
 	model_enemy1.Load("Models/femalezombie/Zumbi_Female.3ds");
