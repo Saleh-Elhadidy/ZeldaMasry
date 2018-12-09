@@ -7,6 +7,7 @@ int WIDTH = 1280;
 int HEIGHT = 720;
 int HeroX = 0;
 int HeroZ = 0;
+float rotAng =0.0;
 bool LookLeft = false;		// Determine which direction the hero will be facing
 bool LookRight = false;
 bool LookForward = true;
@@ -66,7 +67,7 @@ public:
 
 
 Vector Eye(0, 80, -50);
-Vector At(0, -120, -70);
+Vector At(0, -120, -100);
 Vector Up(0, 1, 0);
 
 int cameraZoom = 0;
@@ -86,6 +87,7 @@ Model_3DS model_baby;
 Model_3DS model_cage;
 Model_3DS model_stone;
 Model_3DS model_hg;
+Model_3DS model_potion;
 
 // Textures
 GLTexture tex_ground;
@@ -278,10 +280,7 @@ void myDisplay(void)
 	model_tree.Draw();
 	glPopMatrix();
 
-	glPushMatrix();
-	glTranslated(0, 6, -70);
-	model_princess.Draw();
-	glPopMatrix();
+
 
 
 	glPushMatrix();
@@ -545,12 +544,21 @@ void myDisplay(void)
 	//--------------------------------
 
 
+	//draw potion
+	glPushMatrix();
+	glTranslatef(-22, 0, -20);
+	glScaled(0.6, 0.6, 0.6);
+	glRotated(rotAng, 0, 1, 0);
+	model_potion.Draw();
+	glPopMatrix();
+
 
 		//draw hg
 
 	glPushMatrix();
-	glTranslatef(22, 5, -20);
+	glTranslatef(22, 2, -20);
 	glScaled(0.008, 0.008, 0.008);
+	glRotated(rotAng, 0, 0, 1);
 	model_hg.Draw();
 	glPopMatrix();
 
@@ -670,19 +678,29 @@ void myDisplay(void)
 	//draw cage
 
 	glPushMatrix();
-	glTranslatef(-15, 15, -54);
+	glTranslatef(25, 0, -74);
 	glScaled(0.2, 0.2, 0.2);
 	model_cage.Draw();
 	glPopMatrix();
+	//--------------------
 
+	//draw princess
+	glPushMatrix();
+	glTranslated(29, 5, -78);
+	model_princess.Draw();
+	glPopMatrix();
+
+	//----------
 
 
 
 		//draw baby
 
 	glPushMatrix();
-	glTranslatef(-20, 15, -44);
+	glTranslatef(-5, 15, -82);
 	glScaled(0.2, 0.2, 0.2);
+	glRotated(rotAng, 0, 1, 0);
+
 	model_baby.Draw();
 	glPopMatrix();
 
@@ -876,6 +894,9 @@ void myMouse(int button, int state, int x, int y)
 void Anim() {
 	// Motions functions for Zombies
 	//motion gunctions for Enemy 1
+
+	rotAng += 5;
+
 	if (Enemy1BackForward == 0)
 		MoveEnemy1Z += 0.1;
 	else
@@ -1014,6 +1035,7 @@ void LoadAssets()
 	model_cage.Load("Models/birdcage/Cage.3ds");
 	model_stone.Load("Models/stone/stone podest 3DS.3ds");
 	model_hg.Load("Models/hg/hourgalss.3ds");
+	model_potion.Load("Models/Potion/Potion.3ds");
 
 
 	// Loading texture files
