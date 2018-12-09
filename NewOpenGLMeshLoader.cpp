@@ -61,8 +61,13 @@ public:
 	}
 };
 
-Vector Eye(20, 30, 30);
-Vector At(20, 0, -20);
+//Vector Eye(20, 30, 30);
+//Vector At(20, 0, -20);
+//Vector Up(0, 1, 0);
+
+
+Vector Eye(0, 80, -50);
+Vector At(0, -120, -70);
 Vector Up(0, 1, 0);
 
 int cameraZoom = 0;
