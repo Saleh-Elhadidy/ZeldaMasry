@@ -78,6 +78,7 @@ Model_3DS model_enemy1;
 Model_3DS model_enemy2;
 Model_3DS model_enemy3;
 Model_3DS model_enemy4;
+Model_3DS model_baby;
 // Textures
 GLTexture tex_ground;
 GLTexture tex_bricks;
@@ -374,6 +375,66 @@ void myDisplay(void)
 	//-------------------------------------
 
 
+		//wall of trees
+
+	glPushMatrix();
+	glTranslated(-2, 0, -5);
+	glPushMatrix();
+	glTranslatef(40, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(35, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(30, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(25, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(20, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(15, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(10, 0, 30);
+	glScalef(0.7, 0.7, 0.7);
+	model_tree.Draw();
+	glPopMatrix();
+
+	glPopMatrix();
+
+	//--------------------------------
+
+
+		//draw baby
+
+	glPushMatrix();
+	glTranslatef(-20, 15, -44);
+	glScaled(0.2, 0.2, 0.2);
+	model_baby.Draw();
+	glPopMatrix();
+
+	//draw dragon
 	glPushMatrix();
 	glTranslatef(25, 0, 3);
 	glScaled(4.0, 4.0, 4.0);
@@ -507,13 +568,13 @@ void myMotion(int x, int y)
 
 	if (cameraZoom - y > 0)
 	{
-		Eye.x += -0.1;
-		Eye.z += -0.1;
+		//Eye.x += -0.1;
+		Eye.z += -1;
 	}
 	else
 	{
-		Eye.x += 0.1;
-		Eye.z += 0.1;
+		//Eye.x += 0.1;
+		Eye.z += 1;
 	}
 
 	cameraZoom = y;
@@ -623,6 +684,8 @@ void LoadAssets()
 	//model_enemy2.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
+	model_baby.Load("Models/baby/baby.3ds");
+
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
 	tex_bricks.Load("Textures/fire.bmp");
