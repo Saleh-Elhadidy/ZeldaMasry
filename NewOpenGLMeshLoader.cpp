@@ -79,7 +79,8 @@ float stoneY = 5.0;
 
 int level2start = 0;
 int level2 = 0;
-
+int dragHit = 0;
+bool Cage = true;
 int movetowardsplayer = 0;
 int dropbomb = 0;
 //Second field varibales 
@@ -787,12 +788,13 @@ void myDisplay(void)
 	//----------------------------------
 
 	//draw cage
-
-	glPushMatrix();
-	glTranslatef(25, 0, -74);
-	glScaled(0.2, 0.2, 0.2);
-	model_cage.Draw();
-	glPopMatrix();
+	if (Cage) {
+		glPushMatrix();
+		glTranslatef(25, 0, -74);
+		glScaled(0.2, 0.2, 0.2);
+		model_cage.Draw();
+		glPopMatrix();
+	}
 	//--------------------
 
 	//draw princess
@@ -910,14 +912,16 @@ void myDisplay(void)
 
 
 	//draw dragon
-	glPushMatrix();
-	glTranslatef(DragonX, 0, DragonZ);
-	glScaled(4.0, 4.0, 4.0);
-	//glRotatef(90.f, 1, 0, 0);
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glRotated(DragonRoationAngle, 0, 1, 0);
-	model_dragon.Draw();
-	glPopMatrix();
+	if (dragHit != 4) {
+		glPushMatrix();
+		glTranslatef(DragonX, 0, DragonZ);
+		glScaled(4.0, 4.0, 4.0);
+		//glRotatef(90.f, 1, 0, 0);
+		glColor3f(1.0f, 1.0f, 1.0f);
+		glRotated(DragonRoationAngle, 0, 1, 0);
+		model_dragon.Draw();
+		glPopMatrix();
+	}
 
 	if (level2start == 1) {
 		if (dropbomb == 1) {
@@ -1348,7 +1352,7 @@ void testTimer(int val) {
 
 
 	glutPostRedisplay();						// redraw 		
-	glutTimerFunc(10000, testTimer, 0);
+	glutTimerFunc(100000, testTimer, 0);
 }
 void HitTimer(int value) {
 	if (delay == false) {
@@ -1694,9 +1698,14 @@ void Anim() {
 		rotAngleWep = 0;
 	}
 	if (WepFire) {
-		if (WepX > 39 || WepX < -39 || WepZ> 39 || WepZ < -39) {
-			WepFire = false;
+		printf("The dragon is at X: %f Y: %f \n", DragonX, DragonZ);
+		printf("The Wep is at X: %f Y: %f \n", WepX, WepZ);
 
+		if ((WepX > 39 || WepX < -39 || WepZ> 39 || WepZ < -39) && !level2 && !level2start) {
+			WepFire = false;
+		}
+		else if (level2 && level2start && ((WepX > 39 || WepX < -39) || (WepZ<-118 || WepZ>-39))) {
+			WepFire = false;
 		}
 		else {
 			if (bulletDirection == 1) {
@@ -1713,7 +1722,7 @@ void Anim() {
 			}
 		}
 		//Bullet collisions with enemies
-		if ((WepX <= MoveEnemy1X + 2.5 && WepX >= MoveEnemy1X - 2.5) && (WepZ <= MoveEnemy1Z + 2.5 && WepZ >= MoveEnemy1Z - 2.5)) {
+		if ((WepX <= MoveEnemy1X + 2 && WepX >= MoveEnemy1X - 2) && (WepZ <= MoveEnemy1Z + 2 && WepZ >= MoveEnemy1Z - 2) && WepFire) {
 
 			if (countEnemy1 == 1)
 				countEnemy1 = 2;
@@ -1729,7 +1738,7 @@ void Anim() {
 			WepZ = HeroZ;
 		}
 
-		if ((WepX <= MoveEnemy2X + 2.5 && WepX >= MoveEnemy2X - 2.5) && (WepZ <= MoveEnemy2Z + 2.5 && WepZ >= MoveEnemy2Z - 2.5)) {
+		if ((WepX <= MoveEnemy2X + 2 && WepX >= MoveEnemy2X - 2) && (WepZ <= MoveEnemy2Z + 2 && WepZ >= MoveEnemy2Z - 2) && WepFire) {
 
 			if (countEnemy2 == 1)
 				countEnemy2 = 2;
@@ -1744,7 +1753,7 @@ void Anim() {
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
-		if ((WepX <= MoveEnemy3X + 2.5 && WepX >= MoveEnemy3X - 2.5) && (WepZ <= MoveEnemy3Z + 2.5 && WepZ >= MoveEnemy3Z - 2.5)) {
+		if ((WepX <= MoveEnemy3X + 2 && WepX >= MoveEnemy3X - 2) && (WepZ <= MoveEnemy3Z + 2 && WepZ >= MoveEnemy3Z - 2) && WepFire) {
 
 			if (countEnemy3 == 1)
 				countEnemy3 = 2;
@@ -1759,7 +1768,7 @@ void Anim() {
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
-		if ((WepX <= MoveEnemy4X + 2.5 && WepX >= MoveEnemy4X - 2.5) && (WepZ <= MoveEnemy4Z + 2.5 && WepZ >= MoveEnemy4Z - 2.5)) {
+		if ((WepX <= MoveEnemy4X + 2 && WepX >= MoveEnemy4X - 2) && (WepZ <= MoveEnemy4Z + 2 && WepZ >= MoveEnemy4Z - 2) && WepFire) {
 
 			if (countEnemy4 == 1)
 				countEnemy4 = 2;
@@ -1774,7 +1783,7 @@ void Anim() {
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
-		if ((WepX <= MoveEnemy5X + 2.5 && WepX >= MoveEnemy5X - 2.5) && (WepZ <= MoveEnemy5Z + 2.5 && WepZ >= MoveEnemy5Z - 2.5)) {
+		if ((WepX <= MoveEnemy5X + 2 && WepX >= MoveEnemy5X - 2) && (WepZ <= MoveEnemy5Z + 2 && WepZ >= MoveEnemy5Z - 2) && WepFire) {
 
 			if (countEnemy5 == 1)
 				countEnemy5 = 2;
@@ -1789,7 +1798,7 @@ void Anim() {
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
-		if ((WepX <= MoveEnemy6X + 2.5 && WepX >= MoveEnemy6X - 2.5) && (WepZ <= MoveEnemy6Z + 2.5 && WepZ >= MoveEnemy6Z - 2.5)) {
+		if ((WepX <= MoveEnemy6X + 2 && WepX >= MoveEnemy6X - 2) && (WepZ <= MoveEnemy6Z + 2 && WepZ >= MoveEnemy6Z - 2) && WepFire) {
 
 			if (countEnemy6 == 1)
 				countEnemy6 = 2;
@@ -1804,6 +1813,22 @@ void Anim() {
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
+		}
+		if ((WepX <= DragonX + 8 && WepX >= DragonX - 8) && (WepZ <= DragonZ + 5 && WepZ >= DragonZ - 5) && WepFire) {
+			WepFire = false;
+			if (dragHit == 4) {
+				Cage = false;
+				DragonX = 1000;
+				DragonZ = 1000;
+			}
+			else {
+				dragHit++;
+				if (dragHit == 4) {
+					Cage = false;
+					DragonX = 1000;
+					DragonZ = 1000;
+				}
+			}
 		}
 	}
 	if (countEnemy1 == 2 && countEnemy2 == 2 && countEnemy3 == 2 && countEnemy4 == 2 && countEnemy5 == 2 && countEnemy6 == 2) {
