@@ -3,12 +3,24 @@
 #include "GLTexture.h"
 #include <glut.h>
 
+float Red = 1;
+float Green = 0;
+float Blue = 0;
+float Alpha = 1;
+
+float Red2 = 0.1;
+float Green2 = 0;
+float Blue2 = 0;
+float Alpha2 = 1;
+
+int BoundaryZ = -38;
 int WIDTH = 1280;
 int HEIGHT = 720;
-int HeroX = 0;
-int HeroZ = 0;
-float rotAng =0.0;
+
 int dragondead = 0;
+int HeroX = 38;
+int HeroZ = 38;
+float rotAng = 0.0;
 bool LookLeft = false;		// Determine which direction the hero will be facing
 bool LookRight = false;
 bool LookForward = true;
@@ -42,7 +54,7 @@ float MoveEnemy6Z = 21;
 
 
 int RotationAngleEnemi1 = 0;
-int RotationAngleEnemi2 =90;
+int RotationAngleEnemi2 = 90;
 int RotationAngleEnemi3 = 90;
 int RotationAngleEnemi4 = 0;
 int RotationAngleEnemi5 = 0;
@@ -76,7 +88,7 @@ float dragonscalez = 4.0;
 int level2start = 0;
 int level2 = 0;
 
-int movetowardsplayer = 1;
+int movetowardsplayer = 0;
 int dropbomb = 0;
 //Second field varibales 
 float DragonX = 0;
@@ -87,9 +99,9 @@ int flycage = 0;
 
 bool lastDir = true;   // Boolean to check the direction for "S" and "D" keys
 bool powerup1 = false;
-bool powerup2 = false; 
+bool powerup2 = false;
 bool donePower1 = false; // Powers are activated or not yet
-bool donePower2 = false; 
+bool donePower2 = false;
 int timer1Count = 0;
 bool freeze = false;
 bool cameraType = false;
@@ -105,6 +117,8 @@ float cagetranslatey = 0.0;
 GLuint tex;
 char title[] = "3D Model Loader Sample";
 void Anim();
+//light 
+int lightChanged = 0;
 // 3D Projection Options
 GLdouble fovy = 45.0;
 GLdouble aspectRatio = ((GLdouble)WIDTH / (GLdouble)HEIGHT);
@@ -162,27 +176,43 @@ GLTexture tex_bricks;
 void InitLightSource()
 {
 	// Enable Lighting for this OpenGL Program
-	glEnable(GL_LIGHTING);
+	GLfloat lmodel_ambient[] = { 0.1f, 0.1f, 0.1f, 1.0f };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
 
-	// Enable Light Source number 0
-	// OpengL has 8 light sources
-	glEnable(GL_LIGHT0);
+	GLfloat l0Diffuse[] = { Red, Green, Blue,Alpha };
+	GLfloat l0Spec[] = { 1.0f, 1.0f, 0.0f, 1.0f };
+	GLfloat l0Ambient[] = { 0.1f, 0.0f, 0.0f, 1.0f };
+	GLfloat l0Position[] = { 10.0f, 0.0f, 0.0f, 1 };
+	GLfloat l0Direction[] = { -1.0, 0.0, 0.0 };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, l0Diffuse);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, l0Ambient);
+	glLightfv(GL_LIGHT0, GL_POSITION, l0Position);
+	glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);
+	glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 90.0);
+	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, l0Direction);
 
-	// Define Light source 0 ambient light
-	GLfloat ambient[] = { 0.1f, 0.1f, 0.1, 1.0f };
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
+	GLfloat l1Diffuse[] = { 0.0f, 1.0f, 0.0f, 1.0f };
+	GLfloat l1Ambient[] = { 0.0f, 0.1f, 0.0f, 1.0f };
+	GLfloat l1Position[] = { 0.0f, 10.0f, 0.0f, 1 };
+	GLfloat l1Direction[] = { 0.0, -1.0, 0.0 };
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, l1Diffuse);
+	glLightfv(GL_LIGHT1, GL_AMBIENT, l1Ambient);
+	glLightfv(GL_LIGHT1, GL_POSITION, l1Position);
+	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 30.0);
+	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 90.0);
+	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, l1Direction);
 
-	// Define Light source 0 diffuse light
-	GLfloat diffuse[] = { 0.5f, 0.5f, 0.5f, 1.0f };
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+	GLfloat l2Diffuse[] = { 0.0f, 0.0f, 1.0f, 1.0f };
+	GLfloat l2Ambient[] = { 0.0f, 0.0f, 0.1f, 1.0f };
+	GLfloat l2Position[] = { 0.0f, 0.0f, 10.0f, 1 };
+	GLfloat l2Direction[] = { 0.0, 0.0, -1.0 };
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, l2Diffuse);
+	glLightfv(GL_LIGHT2, GL_AMBIENT, l2Ambient);
+	glLightfv(GL_LIGHT2, GL_POSITION, l2Position);
+	glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 30.0);
+	glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 90.0);
+	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, l2Direction);
 
-	// Define Light source 0 Specular light
-	GLfloat specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-
-	// Finally, define light source 0 position in World Space
-	GLfloat light_position[] = { 0.0f, 10.0f, 0.0f, 1.0f };
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 }
 
 //=======================================================================
@@ -239,6 +269,7 @@ void myInit(void)
 
 	InitMaterial();
 
+	//if(lightChanged==1)
 	glEnable(GL_DEPTH_TEST);
 
 	glEnable(GL_NORMALIZE);
@@ -274,7 +305,8 @@ void RenderGround()
 	glEnd();
 	glPopMatrix();
 
-	glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
+	if (lightChanged == 1)
+		glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
 
 	glColor3f(1, 1, 1);	// Set material back to white instead of grey used for the ground texture.
 }
@@ -305,7 +337,8 @@ void RenderGround2()
 	glEnd();
 	glPopMatrix();
 
-	glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
+	if (lightChanged == 1)
+		glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
 
 	glColor3f(1, 1, 1);	// Set material back to white instead of grey used for the ground texture.
 }
@@ -329,10 +362,6 @@ void myDisplay(void)
 
 
 
-	GLfloat lightIntensity[] = { 0.7, 0.7, 0.7, 1.0f };
-	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
-	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
 	// Draw Ground
 	RenderGround();
 	RenderGround2();
@@ -618,7 +647,7 @@ void myDisplay(void)
 	}
 
 
-		//draw hg
+	//draw hg
 	if (!powerup2) {
 		glPushMatrix();
 		glTranslatef(22, 2, -20);
@@ -627,7 +656,7 @@ void myDisplay(void)
 		model_hg.Draw();
 		glPopMatrix();
 	}
-	
+
 
 
 
@@ -1122,10 +1151,10 @@ void myDisplay(void)
 	model_baby.Draw();
 	glPopMatrix();
 
-	
+
 
 	//Draw enemies
-	if (HitEnemy1==0) {
+	if (HitEnemy1 == 0) {
 		glPushMatrix();
 		glTranslated(MoveEnemy1X, 0, MoveEnemy1Z);
 		glRotated(RotationAngleEnemi1, 0, 1, 0);
@@ -1133,7 +1162,7 @@ void myDisplay(void)
 		model_enemy1.Draw();
 		glPopMatrix();
 	}
-	
+
 
 	if (HitEnemy2 == 0) {
 		glPushMatrix();
@@ -1143,7 +1172,7 @@ void myDisplay(void)
 		model_enemy1.Draw();
 		glPopMatrix();
 	}
-	
+
 	if (HitEnemy3 == 0) {
 		glPushMatrix();
 		glTranslated(MoveEnemy3X, 0, MoveEnemy3Z);
@@ -1161,7 +1190,7 @@ void myDisplay(void)
 		model_enemy1.Draw();
 		glPopMatrix();
 	}
-	
+
 	if (HitEnemy5 == 0) {
 		glPushMatrix();
 		glTranslated(MoveEnemy5X, 0, MoveEnemy5Z);
@@ -1170,7 +1199,7 @@ void myDisplay(void)
 		model_enemy1.Draw();
 		glPopMatrix();
 	}
-	
+
 	if (HitEnemy6 == 0) {
 		glPushMatrix();
 		glTranslated(MoveEnemy6X, 0, MoveEnemy6Z);
@@ -1226,14 +1255,17 @@ void myDisplay(void)
 	model_dragon.Draw();
 	glPopMatrix();
 
-	if (dropbomb == 1) {
-		glPushMatrix();
-		glTranslatef(SphereX, SphereY, SphereZ);
-		glScaled(0.2, 0.2, 0.2);
-		glColor3f(1.0, 0.0, 0.0);
-		glutSolidSphere(10, 15, 15);
-		glPopMatrix();
+	if (level2start == 1) {
+		if (dropbomb == 1) {
+			glPushMatrix();
+			glTranslatef(SphereX, SphereY, SphereZ);
+			glScaled(0.2, 0.2, 0.2);
+			glColor3f(1.0, 0.0, 0.0);
+			glutSolidSphere(10, 15, 15);
+			glPopMatrix();
+		}
 	}
+
 
 	glutSwapBuffers();
 }
@@ -1286,7 +1318,7 @@ void myKeyboard(unsigned char button, int x, int y)
 				At.y = 3;
 				At.z = HeroZ;
 			}
-		
+
 			//if (HeroX != 38 && (HeroZ <= -20 || HeroZ >= 13)) {
 			//	HeroX += 1;
 			//}
@@ -1429,7 +1461,15 @@ void myKeyboard(unsigned char button, int x, int y)
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 
 		break;
+	case 'k':
+		countEnemy1 = 2;
+		countEnemy2 = 2;
+		countEnemy3 = 2;
+		countEnemy4 = 2;
+		countEnemy5 = 2;
+		countEnemy6 = 2;
 
+		break;
 	case 's':
 		lastDir = false;
 		LookForward = true;
@@ -1501,58 +1541,61 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookBackward = true;
 		if (!cameraType) {
 			if (HeroZ != -118) {
+				if (HeroZ != BoundaryZ) {
 
-				if (HeroZ == 29 && HeroX >= 7) {
-					HeroZ += 1;
-
-				}
-
-				if (HeroZ >= 14 || HeroZ <= -23)
-				{
-					HeroZ -= 1;
-				}
-
-				else
-					if (HeroX <= -8 || HeroX >= 3) {
-						HeroZ -= 1;
+					if (HeroZ == 29 && HeroX >= 7) {
+						HeroZ += 1;
 
 					}
+
+					if (HeroZ >= 14 || HeroZ <= -23)
+					{
+						HeroZ -= 1;
+					}
+
+					else
+						if (HeroX <= -8 || HeroX >= 3) {
+							HeroZ -= 1;
+
+						}
+				}
+				Eye.x = HeroX;
+				Eye.y = 30;
+
+				Eye.z = HeroZ + 20;
+				At.x = HeroX;
+				At.y = 3;
+				At.z = HeroZ;
+
 			}
-			Eye.x = HeroX;
-			Eye.y = 30;
-
-			Eye.z = HeroZ + 20;
-			At.x = HeroX;
-			At.y = 3;
-			At.z = HeroZ;
-
 		}
 		else {
 			if (HeroZ != -118) {
-
-				if (HeroZ == 29 && HeroX >= 7) {
-					HeroZ += 1;
-
-				}
-
-				if (HeroZ >= 14 || HeroZ <= -23)
-				{
-					HeroZ -= 1;
-				}
-
-				else
-					if (HeroX <= -8 || HeroX >= 3) {
-						HeroZ -= 1;
+				if (HeroZ != BoundaryZ) {
+					if (HeroZ == 29 && HeroX >= 7) {
+						HeroZ += 1;
 
 					}
-			}
-			Eye.x = HeroX;
-			Eye.z = HeroZ -2;
-			Eye.y = 3;
-			At.x = HeroX;
-			At.y = 3;
-			At.z = HeroZ - 20;
 
+					if (HeroZ >= 14 || HeroZ <= -23)
+					{
+						HeroZ -= 1;
+					}
+
+					else
+						if (HeroX <= -8 || HeroX >= 3) {
+							HeroZ -= 1;
+
+						}
+				}
+				Eye.x = HeroX;
+				Eye.z = HeroZ - 2;
+				Eye.y = 3;
+				At.x = HeroX;
+				At.y = 3;
+				At.z = HeroZ - 20;
+
+			}
 		}
 		glLoadIdentity();
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
@@ -1561,13 +1604,23 @@ void myKeyboard(unsigned char button, int x, int y)
 		movetowardsplayer = 1 - movetowardsplayer;
 		break;
 	case 'p':
-		level2 = 1-level2;
+		level2 = 1 - level2;
+		break;
+	case'l':
+
+		if (lightChanged == 0)
+			lightChanged = 1;
+		else
+			lightChanged = 0;
+		break;
+	case 'i':
+		flycage = 1 - flycage;
 		break;
 	case 'c':
 		cameraType = !cameraType;
 		break;
 
-	case'f' :
+	case'f':
 		if (!WepFire) {
 			WepFire = true;
 			if (LookForward) {
@@ -1578,7 +1631,7 @@ void myKeyboard(unsigned char button, int x, int y)
 			}
 			if (LookLeft) {
 				bulletDirection = 3;
-			}	
+			}
 			if (LookRight) {
 				bulletDirection = 4;
 			}
@@ -1587,21 +1640,18 @@ void myKeyboard(unsigned char button, int x, int y)
 		}
 		break;
 
-	case 'l':
-		flycage = 1 - flycage;
-		break;
+
 	case 'm':
 		dragondead = 1 - dragondead;
 		break;
 	case 27:
-		exit(0);
+		//exit(0);
 		break;
 	default:
 		break;
-
 		glutPostRedisplay();
-		}
 	}
+}
 
 //=======================================================================
 // Motion Function
@@ -1637,26 +1687,33 @@ void myMotion(int x, int y)
 
 
 void testTimer(int val) {
-	DragonZ = (rand() % 120) * -1;
-	DragonX = rand() % 40;
-	dropbomb = 1 - dropbomb;
-	SphereX = HeroX;
-	SphereZ = HeroZ;
 
-	if (DragonZ > -40)
-		DragonZ = -50;
+	if (level2start == 1) {
+		DragonZ = (rand() % 120) * -1;
+		DragonX = rand() % 40;
+		dropbomb = 1 - dropbomb;
+		if (dropbomb == 1) {
+			SphereX = HeroX;
+			SphereZ = HeroZ;
+		}
+		if (DragonZ > -40)
+			DragonZ = -50;
 
-	if (dragonMovement == 0)
-	{
-		DragonRoationAngle = 180;
-		DragonX = DragonX * -1;
-		dragonMovement = 1;
+		if (dragonMovement == 0)
+		{
+			DragonRoationAngle = 180;
+			DragonX = DragonX * -1;
+			dragonMovement = 1;
+		}
+		else
+		{
+			DragonRoationAngle = 90;
+			dragonMovement = 0;
+		}
+
 	}
-	else
-	{
-		DragonRoationAngle = 90;
-		dragonMovement = 0;
-	}
+
+
 	glutPostRedisplay();						// redraw 		
 	glutTimerFunc(10000, testTimer, 0);
 }
@@ -1664,18 +1721,18 @@ void HitTimer(int value) {
 	if (delay == false) {
 		delay = true;
 	}
-	else{ 
+	else {
 		hit = true;
 		//delay = false;
 	}
-	
+
 	glutPostRedisplay();						// redraw 		
-	glutTimerFunc(1000, HitTimer, 0);
+	glutTimerFunc(1500, HitTimer, 0);
 }
 
 void timerPower(int val) {
 	if (timer1Count < 2) {
-		
+
 		timer1Count++;
 		glutPostRedisplay();						// redraw 		
 		glutTimerFunc(4000, timerPower, 0);
@@ -1684,7 +1741,7 @@ void timerPower(int val) {
 		donePower1 = true;
 		freeze = false;
 	}
-	
+
 }
 //=======================================================================
 // Mouse Function
@@ -1727,52 +1784,72 @@ void Anim() {
 
 	
 	if (SphereY <= 1 && SphereX == HeroX && SphereZ == HeroZ) {
-		printf("ana henaa");
-		//exit(0);
+		if (health2 && health3 && health1 && hit) {
+			health3 = !health3;
+			hit = false;
+			delay = false;
+
+		}
+		else if(health2  && health1 && hit){
+			health2 = !health2;
+			hit = false;
+			delay = false;
+
+		}
+		else if(health1 && hit) {
+			health1 = !health1;
+			hit = false;
+			delay = false;
+
+		}
 	}
 	if (!health1 && !health2 && !health3) {
 		//exit(0);
 	}
 	if (level2 == 1 && stoneY >= -20) {
+		lightChanged = 1;
 		stoneY -= 0.07;
-		wallX += 0.4	;
+		wallX += 0.4;
 	}
+
 	
-	//if (level2start == 1) {
-	//}
-	
-	if (dropbomb==1) {
+	if (dropbomb == 1) {
 		SphereY -= 0.5;
 	}
-	if (dropbomb == 0) {
-		SphereY = 30;
-	}
-	if (SphereY <= -10) {
-		SphereY = 30;
-	}
-
-	if (movetowardsplayer == 1 && dragondead==0) {
-		if (DragonX != HeroX) {
-			if (DragonX > HeroX) {
-				DragonX -= 0.3;
-			}
-			else if (DragonX < HeroX) {
-				DragonX += 0.3;
-
-			}
-
+		if (level2start == 1) {
+			movetowardsplayer = 1;
 		}
-		if (DragonZ != HeroZ) {
-			if (DragonZ > HeroZ) {
-				DragonZ -= 0.3;
-			}
-			else if (DragonZ < HeroZ) {
-				DragonZ += 0.3;
 
-			}
 
+		if (dropbomb == 0) {
+			SphereY = 30;
 		}
-	}
+		if (SphereY <= -10) {
+			SphereY = 30;
+		}
+
+		if (movetowardsplayer == 1 && dragondead == 0) {
+			if (DragonX != HeroX) {
+				if (DragonX > HeroX) {
+					DragonX -= 0.3;
+				}
+				else if (DragonX < HeroX) {
+					DragonX += 0.3;
+				}
+
+
+			}
+			if (DragonZ != HeroZ) {
+				if (DragonZ > HeroZ) {
+					DragonZ -= 0.3;
+				}
+				else if (DragonZ < HeroZ) {
+					DragonZ += 0.3;
+
+				}
+
+			}
+		}
 	// Powerup conditionals
 	if (HeroX == 22 && HeroZ == -20 && !powerup2) {
 		powerup2 = true;
@@ -1790,110 +1867,110 @@ void Anim() {
 
 	rotAng += 5;
 	if (!freeze) {
-			if (Enemy1BackForward == 0)
-				MoveEnemy1Z += 0.1;
-			else
-				MoveEnemy1Z -= 0.1;
+		if (Enemy1BackForward == 0)
+			MoveEnemy1Z += 0.1;
+		else
+			MoveEnemy1Z -= 0.1;
 
-			if (MoveEnemy1Z >= 10) {
-				Enemy1BackForward = 1;
-				MoveEnemy1X = -31;
-				RotationAngleEnemi1 = -180;
-			}
-			else if (MoveEnemy1Z <= -35) {
+		if (MoveEnemy1Z >= 10) {
+			Enemy1BackForward = 1;
+			MoveEnemy1X = -31;
+			RotationAngleEnemi1 = -180;
+		}
+		else if (MoveEnemy1Z <= -35) {
 
-				Enemy1BackForward = 0;
-				MoveEnemy1X = -35;
-				RotationAngleEnemi1 = 0;
-			}
-		
+			Enemy1BackForward = 0;
+			MoveEnemy1X = -35;
+			RotationAngleEnemi1 = 0;
+		}
+
 		//motion functions for Enemy 2
-			if (Enemy2BackForward == 0)
-				MoveEnemy2X += 0.1;
-			else
-				MoveEnemy2X -= 0.1;
+		if (Enemy2BackForward == 0)
+			MoveEnemy2X += 0.1;
+		else
+			MoveEnemy2X -= 0.1;
 
-			if (MoveEnemy2X >= 35) {
-				Enemy2BackForward = 1;
-				MoveEnemy2Z = 35;
-				RotationAngleEnemi2 = -90;
-			}
-			else if (MoveEnemy2X <= -35) {
-				MoveEnemy2Z = 39;
-				Enemy2BackForward = 0;
-				RotationAngleEnemi2 = 90;
-			}
+		if (MoveEnemy2X >= 35) {
+			Enemy2BackForward = 1;
+			MoveEnemy2Z = 35;
+			RotationAngleEnemi2 = -90;
+		}
+		else if (MoveEnemy2X <= -35) {
+			MoveEnemy2Z = 39;
+			Enemy2BackForward = 0;
+			RotationAngleEnemi2 = 90;
+		}
 
 		//motion functions for Enemy 3
-			if (Enemy3BackForward == 0)
-				MoveEnemy3X += 0.2;
-			else
-				MoveEnemy3X -= 0.2;
+		if (Enemy3BackForward == 0)
+			MoveEnemy3X += 0.2;
+		else
+			MoveEnemy3X -= 0.2;
 
-			if (MoveEnemy3X >= 35) {
-				Enemy3BackForward = 1;
-				MoveEnemy3Z = 30;
-				RotationAngleEnemi3 = -90;
-			}
-			else if (MoveEnemy3X <= -35) {
-				Enemy3BackForward = 0;
-				MoveEnemy3Z = 34;
-				RotationAngleEnemi3 = 90;
-			}
-		
-		//motion gunctions for Enemy 4
-			if (Enemy4BackForward == 0)
-				MoveEnemy4Z += 0.3;
-			else
-				MoveEnemy4Z -= 0.2;
-
-			if (MoveEnemy4Z >= 10) {
-				Enemy4BackForward = 1;
-				MoveEnemy4X = -21;
-				RotationAngleEnemi4 = -180;
-			}
-			else if (MoveEnemy4Z <= -35) {
-				Enemy4BackForward = 0;
-				MoveEnemy4X = -25;
-				RotationAngleEnemi4 = 0;
-			}
-		
-		//motion gunctions for Enemy 5
-			if (Enemy5BackForward == 0)
-				MoveEnemy5Z += 0.3;
-			else
-				MoveEnemy5Z -= 0.2;
-
-			if (MoveEnemy5Z >= 10) {
-				Enemy5BackForward = 1;
-				MoveEnemy5X = 21;
-				RotationAngleEnemi5 = -180;
-			}
-			else if (MoveEnemy5Z <= -35) {
-				Enemy5BackForward = 0;
-				MoveEnemy5X = 25;
-				RotationAngleEnemi5 = 0;
-			}
-		
-		//motion gunctions for Enemy 6
-			if (Enemy6BackForward == 0)
-				MoveEnemy6X += 0.6;
-			else
-				MoveEnemy6X -= 0.4;
-
-			if (MoveEnemy6X >= 35) {
-				Enemy6BackForward = 1;
-				MoveEnemy6Z = 17;
-				RotationAngleEnemi6 = -90;
-			}
-			else if (MoveEnemy6X <= -35) {
-				Enemy6BackForward = 0;
-				MoveEnemy6Z = 21;
-				RotationAngleEnemi6 = 90;
-			}
-
+		if (MoveEnemy3X >= 35) {
+			Enemy3BackForward = 1;
+			MoveEnemy3Z = 30;
+			RotationAngleEnemi3 = -90;
 		}
-	
+		else if (MoveEnemy3X <= -35) {
+			Enemy3BackForward = 0;
+			MoveEnemy3Z = 34;
+			RotationAngleEnemi3 = 90;
+		}
+
+		//motion gunctions for Enemy 4
+		if (Enemy4BackForward == 0)
+			MoveEnemy4Z += 0.3;
+		else
+			MoveEnemy4Z -= 0.2;
+
+		if (MoveEnemy4Z >= 10) {
+			Enemy4BackForward = 1;
+			MoveEnemy4X = -21;
+			RotationAngleEnemi4 = -180;
+		}
+		else if (MoveEnemy4Z <= -35) {
+			Enemy4BackForward = 0;
+			MoveEnemy4X = -25;
+			RotationAngleEnemi4 = 0;
+		}
+
+		//motion gunctions for Enemy 5
+		if (Enemy5BackForward == 0)
+			MoveEnemy5Z += 0.3;
+		else
+			MoveEnemy5Z -= 0.2;
+
+		if (MoveEnemy5Z >= 10) {
+			Enemy5BackForward = 1;
+			MoveEnemy5X = 21;
+			RotationAngleEnemi5 = -180;
+		}
+		else if (MoveEnemy5Z <= -35) {
+			Enemy5BackForward = 0;
+			MoveEnemy5X = 25;
+			RotationAngleEnemi5 = 0;
+		}
+
+		//motion gunctions for Enemy 6
+		if (Enemy6BackForward == 0)
+			MoveEnemy6X += 0.6;
+		else
+			MoveEnemy6X -= 0.4;
+
+		if (MoveEnemy6X >= 35) {
+			Enemy6BackForward = 1;
+			MoveEnemy6Z = 17;
+			RotationAngleEnemi6 = -90;
+		}
+		else if (MoveEnemy6X <= -35) {
+			Enemy6BackForward = 0;
+			MoveEnemy6Z = 21;
+			RotationAngleEnemi6 = 90;
+		}
+
+	}
+
 	//Collision between enemy and Hero
 	if ((MoveEnemy1X <= HeroX + 2 && MoveEnemy1X >= HeroX - 2) && (MoveEnemy1Z <= HeroZ + 2 && MoveEnemy1Z >= HeroZ - 2)) {
 		Collided = 1; //to be changed to zero at the heakth bar
@@ -1913,7 +1990,7 @@ void Anim() {
 			delay = false;
 		}
 	}
-	if ((MoveEnemy2X <= HeroX+2 && MoveEnemy2X >= HeroX-2) && (MoveEnemy2Z<=HeroZ+2 && MoveEnemy2Z >= HeroZ - 2)) {
+	if ((MoveEnemy2X <= HeroX + 2 && MoveEnemy2X >= HeroX - 2) && (MoveEnemy2Z <= HeroZ + 2 && MoveEnemy2Z >= HeroZ - 2)) {
 		Collided = 1; //to be changed to zero at the heakth bar
 		if (health3 && hit) {
 			health3 = false;
@@ -2015,7 +2092,7 @@ void Anim() {
 	if (WepFire) {
 		if (WepX > 39 || WepX < -39 || WepZ> 39 || WepZ < -39) {
 			WepFire = false;
-			
+
 		}
 		else {
 			if (bulletDirection == 1) {
@@ -2033,94 +2110,104 @@ void Anim() {
 		}
 		//Bullet collisions with enemies
 		if ((WepX <= MoveEnemy1X + 2.5 && WepX >= MoveEnemy1X - 2.5) && (WepZ <= MoveEnemy1Z + 2.5 && WepZ >= MoveEnemy1Z - 2.5)) {
+
+			if (countEnemy1 == 1)
+				countEnemy1 = 2;
+			if (countEnemy1 == 0)
+				countEnemy1 = 1;
 			if (countEnemy1 >= 2) {
 				HitEnemy1 = 1;
 				MoveEnemy1X = 10000;
 				MoveEnemy1Z = 10000;
 			}
-			if (countEnemy1 == 0)
-				countEnemy1 = 1;
-			if (countEnemy1 == 1)
-				countEnemy1 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 
 		if ((WepX <= MoveEnemy2X + 2.5 && WepX >= MoveEnemy2X - 2.5) && (WepZ <= MoveEnemy2Z + 2.5 && WepZ >= MoveEnemy2Z - 2.5)) {
+
+			if (countEnemy2 == 1)
+				countEnemy2 = 2;
+			if (countEnemy2 == 0)
+				countEnemy2 = 1;
 			if (countEnemy2 >= 2) {
 				HitEnemy2 = 1;
 				MoveEnemy2X = 10000;
 				MoveEnemy2Z = 10000;
 			}
-			if (countEnemy2 == 0)
-				countEnemy2 = 1;
-			if (countEnemy2 == 1)
-				countEnemy2 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 		if ((WepX <= MoveEnemy3X + 2.5 && WepX >= MoveEnemy3X - 2.5) && (WepZ <= MoveEnemy3Z + 2.5 && WepZ >= MoveEnemy3Z - 2.5)) {
+
+			if (countEnemy3 == 1)
+				countEnemy3 = 2;
+			if (countEnemy3 == 0)
+				countEnemy3 = 1;
 			if (countEnemy3 >= 2) {
 				HitEnemy3 = 1;
 				MoveEnemy3X = 10000;
 				MoveEnemy3Z = 10000;
 			}
-			if (countEnemy3 == 0)
-				countEnemy3 = 1;
-			if (countEnemy3 == 1)
-				countEnemy3 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 		if ((WepX <= MoveEnemy4X + 2.5 && WepX >= MoveEnemy4X - 2.5) && (WepZ <= MoveEnemy4Z + 2.5 && WepZ >= MoveEnemy4Z - 2.5)) {
+
+			if (countEnemy4 == 1)
+				countEnemy4 = 2;
+			if (countEnemy4 == 0)
+				countEnemy4 = 1;
 			if (countEnemy4 >= 2) {
 				HitEnemy4 = 1;
 				MoveEnemy4X = 10000;
 				MoveEnemy4Z = 10000;
 			}
-			if (countEnemy4 == 0)
-				countEnemy4 = 1;
-			if (countEnemy4 == 1)
-				countEnemy4 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 		if ((WepX <= MoveEnemy5X + 2.5 && WepX >= MoveEnemy5X - 2.5) && (WepZ <= MoveEnemy5Z + 2.5 && WepZ >= MoveEnemy5Z - 2.5)) {
+
+			if (countEnemy5 == 1)
+				countEnemy5 = 2;
+			if (countEnemy5 == 0)
+				countEnemy5 = 1;
 			if (countEnemy5 >= 2) {
 				HitEnemy5 = 1;
 				MoveEnemy5X = 10000;
 				MoveEnemy5Z = 10000;
 			}
-			if (countEnemy5 == 0)
-				countEnemy5 = 1;
-			if (countEnemy5 == 1)
-				countEnemy5 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 		if ((WepX <= MoveEnemy6X + 2.5 && WepX >= MoveEnemy6X - 2.5) && (WepZ <= MoveEnemy6Z + 2.5 && WepZ >= MoveEnemy6Z - 2.5)) {
+
+			if (countEnemy6 == 1)
+				countEnemy6 = 2;
+			if (countEnemy6 == 0)
+				countEnemy6 = 1;
 			if (countEnemy6 >= 2) {
 				HitEnemy6 = 1;
 				MoveEnemy6X = 10000;
 				MoveEnemy6Z = 10000;
 
 			}
-			if (countEnemy6 == 0)
-				countEnemy6 = 1;
-			if (countEnemy6 == 1)
-				countEnemy6 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 	}
-
-
+	if (countEnemy1 == 2 && countEnemy2 == 2 && countEnemy3 == 2 && countEnemy4 == 2 && countEnemy5 == 2 && countEnemy6 == 2) {
+		level2 = 1;
+		BoundaryZ = -118;
+	}
+	if (HeroZ < -45)
+		level2start = 1;
 	//printf("%f\n weapon", WepX);
 	glutPostRedisplay();
 }
@@ -2212,6 +2299,8 @@ void main(int argc, char** argv)
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHT2);
 	glEnable(GL_NORMALIZE);
 	glEnable(GL_COLOR_MATERIAL);
 
