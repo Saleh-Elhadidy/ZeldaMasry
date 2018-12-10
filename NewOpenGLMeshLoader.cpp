@@ -1291,6 +1291,9 @@ void Anim() {
 	if (dropbomb==1) {
 		SphereY -= 0.3;
 	}
+	if (dropbomb == 0) {
+		SphereY = 30;
+	}
 	if (SphereY <= -10) {
 		SphereY = 30;
 	}
