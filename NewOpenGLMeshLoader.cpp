@@ -1302,7 +1302,7 @@ void myMouse(int button, int state, int x, int y)
 void Anim() {
 	if (level2 == 1) {
 		stoneY -= 0.07;
-		wallX += 0.3	;
+		wallX += 0.4	;
 	}
 	
 	//if (level2start == 1) {
