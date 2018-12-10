@@ -62,10 +62,6 @@ int HitEnemy3 = 0;
 int HitEnemy4 = 0;
 int HitEnemy5 = 0;
 int HitEnemy6 = 0;
-
-int level2start = 0;
-int level2 = 0;
-
 int movetowardsplayer = 1;
 int dropbomb = 0;
 //Second field varibales 
@@ -88,8 +84,6 @@ float SphereZ = 30;
 GLuint tex;
 char title[] = "3D Model Loader Sample";
 void Anim();
-//light 
-int l = 0;
 // 3D Projection Options
 GLdouble fovy = 45.0;
 GLdouble aspectRatio = ((GLdouble)WIDTH / (GLdouble)HEIGHT);
@@ -146,42 +140,28 @@ GLTexture tex_bricks;
 //=======================================================================
 void InitLightSource()
 {
-	GLfloat lmodel_ambient[] = { 0.1f, 0.1f, 0.1f, 1.0f };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+	// Enable Lighting for this OpenGL Program
+	glEnable(GL_LIGHTING);
 
-	GLfloat l0Diffuse[] = { 1.0f, 0.0f, 0.0f, 1.0f };
-	GLfloat l0Spec[] = { 1.0f, 1.0f, 0.0f, 1.0f };
-	GLfloat l0Ambient[] = { 0.1f, 0.0f, 0.0f, 1.0f };
-	GLfloat l0Position[] = { 10.0f, 0.0f, 0.0f, 1 };
-	GLfloat l0Direction[] = { -1.0, 0.0, 0.0 };
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, l0Diffuse);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, l0Ambient);
-	glLightfv(GL_LIGHT0, GL_POSITION, l0Position);
-	glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 30.0);
-	glLightf(GL_LIGHT0, GL_SPOT_EXPONENT, 90.0);
-	glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, l0Direction);
+	// Enable Light Source number 0
+	// OpengL has 8 light sources
+	glEnable(GL_LIGHT0);
 
-	GLfloat l1Diffuse[] = { 0.0f, 1.0f, 0.0f, 1.0f };
-	GLfloat l1Ambient[] = { 0.0f, 0.1f, 0.0f, 1.0f };
-	GLfloat l1Position[] = { 0.0f, 10.0f, 0.0f, 1 };
-	GLfloat l1Direction[] = { 0.0, -1.0, 0.0 };
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, l1Diffuse);
-	glLightfv(GL_LIGHT1, GL_AMBIENT, l1Ambient);
-	glLightfv(GL_LIGHT1, GL_POSITION, l1Position);
-	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 30.0);
-	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 90.0);
-	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, l1Direction);
+	// Define Light source 0 ambient light
+	GLfloat ambient[] = { 0.1f, 0.1f, 0.1, 1.0f };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);
 
-	GLfloat l2Diffuse[] = { 0.0f, 0.0f, 1.0f, 1.0f };
-	GLfloat l2Ambient[] = { 0.0f, 0.0f, 0.1f, 1.0f };
-	GLfloat l2Position[] = { 0.0f, 0.0f, 10.0f, 1 };
-	GLfloat l2Direction[] = { 0.0, 0.0, -1.0 };
-	glLightfv(GL_LIGHT2, GL_DIFFUSE, l2Diffuse);
-	glLightfv(GL_LIGHT2, GL_AMBIENT, l2Ambient);
-	glLightfv(GL_LIGHT2, GL_POSITION, l2Position);
-	glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 30.0);
-	glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 90.0);
-	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, l2Direction);
+	// Define Light source 0 diffuse light
+	GLfloat diffuse[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+
+	// Define Light source 0 Specular light
+	GLfloat specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+
+	// Finally, define light source 0 position in World Space
+	GLfloat light_position[] = { 0.0f, 10.0f, 0.0f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 }
 
 //=======================================================================
@@ -234,10 +214,7 @@ void myInit(void)
 	// UP (ux, uy, uz):  denotes the upward orientation of the camera.							 //
 	//*******************************************************************************************//
 
-	
-		InitLightSource();
-	
-
+	InitLightSource();
 
 	InitMaterial();
 
@@ -276,9 +253,8 @@ void RenderGround()
 	glEnd();
 	glPopMatrix();
 
+	glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
 
-	if (l == 1)
-		glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
 	glColor3f(1, 1, 1);	// Set material back to white instead of grey used for the ground texture.
 }
 
@@ -308,9 +284,8 @@ void RenderGround2()
 	glEnd();
 	glPopMatrix();
 
+	glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
 
-	if (l == 1)
-		glEnable(GL_LIGHTING);	// Enable lighting again for other entites coming throung the pipeline.
 	glColor3f(1, 1, 1);	// Set material back to white instead of grey used for the ground texture.
 }
 void drawWall(double thickness) {
@@ -333,7 +308,10 @@ void myDisplay(void)
 
 
 
-
+	GLfloat lightIntensity[] = { 0.7, 0.7, 0.7, 1.0f };
+	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
+	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
 	// Draw Ground
 	RenderGround();
 	RenderGround2();
@@ -1124,12 +1102,6 @@ void myKeyboard(unsigned char button, int x, int y)
 		glLoadIdentity();
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
-	case'l':
-		if (l == 0)
-			l = 1;
-		else
-			l = 0;
-		break;
 	case 'w':
 		lastDir = true;
 		LookForward = false;;
@@ -1199,9 +1171,7 @@ void myKeyboard(unsigned char button, int x, int y)
 	case 'c':
 		cameraType = !cameraType;
 		break;
-	case'o':
-		movetowardsplayer = 1 - movetowardsplayer;
-		break;
+
 	case'f' :
 		if (!WepFire) {
 			WepFire = true;
@@ -1267,8 +1237,8 @@ void myMotion(int x, int y)
 void testTimer(int val) {
 	DragonZ = (rand() % 120) * -1;
 	DragonX = rand() % 40;
-	//printf("%f\n Dragon X :", DragonX);
-	//printf("%f\n Dragon Z :", DragonZ);
+	printf("%f\n Dragon X :", DragonX);
+	printf("%f\n Dragon Z :", DragonZ);
 	dropbomb = 1 - dropbomb;
 	SphereX = HeroX;
 	SphereZ = HeroZ;
@@ -1318,12 +1288,6 @@ void myMouse(int button, int state, int x, int y)
 }
 
 void Anim() {
-	if (level2 == 1) {
-		l = 1;
-	}
-	if (level2start == 1) {
-
-	}
 	if (dropbomb==1) {
 		SphereY -= 0.3;
 	}
@@ -1514,85 +1478,74 @@ void Anim() {
 		}
 		//Bullet collisions with enemies
 		if ((WepX <= MoveEnemy1X + 2.5 && WepX >= MoveEnemy1X - 2.5) && (WepZ <= MoveEnemy1Z + 2.5 && WepZ >= MoveEnemy1Z - 2.5)) {
-			
-			if (countEnemy1 == 1)
-				countEnemy1 = 2;
-			if (countEnemy1 == 0)
-				countEnemy1 = 1;
 			if (countEnemy1 >= 2)
 				HitEnemy1 = 1;
-			
+			if (countEnemy1 == 0)
+				countEnemy1 = 1;
+			if (countEnemy1 == 1)
+				countEnemy1 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 
 		if ((WepX <= MoveEnemy2X + 2.5 && WepX >= MoveEnemy2X - 2.5) && (WepZ <= MoveEnemy2Z + 2.5 && WepZ >= MoveEnemy2Z - 2.5)) {
-		
-			if (countEnemy2 == 1)
-				countEnemy2 = 2;
-			if (countEnemy2 == 0)
-				countEnemy2 = 1;
 			if (countEnemy2 >= 2)
 				HitEnemy2 = 1;
+			if (countEnemy2 == 0)
+				countEnemy2 = 1;
+			if (countEnemy2 == 1)
+				countEnemy2 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
-			printf("%d\n countenemy2 :", countEnemy2);
 		}
 		if ((WepX <= MoveEnemy3X + 2.5 && WepX >= MoveEnemy3X - 2.5) && (WepZ <= MoveEnemy3Z + 2.5 && WepZ >= MoveEnemy3Z - 2.5)) {
-		
-			if (countEnemy3 == 1)
-				countEnemy3 = 2;
-			if (countEnemy3 == 0)
-				countEnemy3 = 1;
 			if (countEnemy3 >= 2)
 				HitEnemy3 = 1;
-		
+			if (countEnemy3 == 0)
+				countEnemy3 = 1;
+			if (countEnemy3 == 1)
+				countEnemy3 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 		if ((WepX <= MoveEnemy4X + 2.5 && WepX >= MoveEnemy4X - 2.5) && (WepZ <= MoveEnemy4Z + 2.5 && WepZ >= MoveEnemy4Z - 2.5)) {
-			
-			if (countEnemy4 == 1)
-				countEnemy4 = 2;
-			if (countEnemy4 == 0)
-				countEnemy4 = 1;
 			if (countEnemy4 >= 2)
 				HitEnemy4 = 1;
-		
+			if (countEnemy4 == 0)
+				countEnemy4 = 1;
+			if (countEnemy4 == 1)
+				countEnemy4 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 		if ((WepX <= MoveEnemy5X + 2.5 && WepX >= MoveEnemy5X - 2.5) && (WepZ <= MoveEnemy5Z + 2.5 && WepZ >= MoveEnemy5Z - 2.5)) {
-			if (countEnemy5 == 1)
-				countEnemy5 = 2;
-			if (countEnemy5 == 0)
-				countEnemy5 = 1;
 			if (countEnemy5 >= 2)
 				HitEnemy5 = 1;
+			if (countEnemy5 == 0)
+				countEnemy5 = 1;
+			if (countEnemy5 == 1)
+				countEnemy5 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 		if ((WepX <= MoveEnemy6X + 2.5 && WepX >= MoveEnemy6X - 2.5) && (WepZ <= MoveEnemy6Z + 2.5 && WepZ >= MoveEnemy6Z - 2.5)) {
-			if (countEnemy6 == 1)
-				countEnemy6 = 2;
-			if (countEnemy6 == 0)
-				countEnemy6 = 1;
-			
 			if (countEnemy6 >= 2)
 				HitEnemy6 = 1;
+			if (countEnemy6 == 0)
+				countEnemy6 = 1;
+			if (countEnemy6 == 1)
+				countEnemy6 = 2;
 			WepFire = false;
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
 	}
-	if (countEnemy1 == 2 && countEnemy2 == 2 && countEnemy3 == 2 && countEnemy4 == 2 && countEnemy5 == 2 && countEnemy6 == 2) {
-		level2 = 1;
-	}
+
 
 	//printf("%f\n weapon", WepX);
 	glutPostRedisplay();
