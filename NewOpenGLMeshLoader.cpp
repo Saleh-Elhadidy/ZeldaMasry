@@ -16,6 +16,8 @@ float Alpha2 = 1;
 int BoundaryZ = -38;
 int WIDTH = 1280;
 int HEIGHT = 720;
+
+int dragondead = 0;
 int HeroX = 38;
 int HeroZ = 38;
 float rotAng = 0.0;
@@ -50,6 +52,7 @@ float MoveEnemy4Z = -35;
 float MoveEnemy5Z = -35;
 float MoveEnemy6Z = 21;
 
+
 int RotationAngleEnemi1 = 0;
 int RotationAngleEnemi2 = 90;
 int RotationAngleEnemi3 = 90;
@@ -77,6 +80,11 @@ int HitEnemy6 = 0;
 float wallX = -40.0;
 float stoneY = 5.0;
 
+
+float dragonscalex = 4.0;
+float dragonscaley = 4.0;
+float dragonscalez = 4.0;
+
 int level2start = 0;
 int level2 = 0;
 int dragHit = 0;
@@ -88,6 +96,7 @@ float DragonX = 0;
 float DragonZ = -80;
 int dragonMovement = 0;
 float DragonRoationAngle = 90;
+int flycage = 0;
 
 bool lastDir = true;   // Boolean to check the direction for "S" and "D" keys
 bool powerup1 = false;
@@ -105,6 +114,7 @@ bool health2 = true;
 bool health3 = false;
 bool hit = true;
 bool delay = false;
+float cagetranslatey = 0.0;
 GLuint tex;
 char title[] = "3D Model Loader Sample";
 void Anim();
@@ -785,6 +795,332 @@ void myDisplay(void)
 
 
 
+
+	//draw stones as walls for 2nd field
+
+	glPushMatrix();
+	glTranslated(0, 0, -80);
+
+	glPushMatrix();
+	glTranslatef(38, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(33, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(28, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(23, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(18, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(13, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(8, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(3, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-2, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-7, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-12, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-17, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-22, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-27, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-32, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-37, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+	glPopMatrix();
+
+
+	//-----------------------------------
+
+	glPushMatrix();
+	glTranslated(0, 0, -80);
+	glRotated(90, 0.0, 1.0, 0.0);
+
+	glPushMatrix();
+	glTranslatef(38, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(33, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(28, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(23, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(18, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(13, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(8, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(3, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-2, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-7, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-12, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-17, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-22, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-27, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-32, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-37, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+	glPopMatrix();
+
+	//----------------------------------
+
+	glPushMatrix();
+	glTranslated(0, 0, -80);
+	glRotated(-90, 0.0, 1.0, 0.0);
+
+	glPushMatrix();
+	glTranslatef(38, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(33, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(28, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(23, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(18, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	glPushMatrix();
+	glTranslatef(13, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(8, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(3, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-2, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-7, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-12, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-17, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-22, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-27, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-32, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(-37, 5, -41);
+	//glScaled(0.2, 0.2, 0.2);
+	model_stone.Draw();
+	glPopMatrix();
+	glPopMatrix();
+
+
 	//----------------------------------
 
 	//draw cage
@@ -795,6 +1131,7 @@ void myDisplay(void)
 		model_cage.Draw();
 		glPopMatrix();
 	}
+
 	//--------------------
 
 	//draw princess
@@ -922,6 +1259,7 @@ void myDisplay(void)
 		model_dragon.Draw();
 		glPopMatrix();
 	}
+
 
 	if (level2start == 1) {
 		if (dropbomb == 1) {
@@ -1146,13 +1484,22 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookBackward = false;
 		if (!cameraType) {
 			if (HeroZ != 38) {
-				if ((HeroZ <= 20 || HeroZ >= 28)) {
+
+				if (HeroZ == 21 && HeroX >= 7) {
+					HeroZ -= 1;
+
+				}
+
+				if (HeroZ >= 14 || HeroZ <= -23)
+				{
 					HeroZ += 1;
 				}
 
-				if (HeroX < 5) {
-					HeroZ += 1;
-				}
+				else
+					if (HeroX <= -8 || HeroX >= 3) {
+						HeroZ += 1;
+
+					}
 			}
 			Eye.x = HeroX;
 			Eye.z = HeroZ - 20;
@@ -1160,16 +1507,26 @@ void myKeyboard(unsigned char button, int x, int y)
 			At.x = HeroX;
 			At.y = 3;
 			At.z = HeroZ;
+
 		}
 		else {
 			if (HeroZ != 38) {
-				if ((HeroZ <= 20 || HeroZ >= 28)) {
+
+				if (HeroZ == 21 && HeroX >= 7) {
+					HeroZ -= 1;
+
+				}
+
+				if (HeroZ >= 14 || HeroZ <= -23)
+				{
 					HeroZ += 1;
 				}
 
-				if (HeroX < 5) {
-					HeroZ += 1;
-				}
+				else
+					if (HeroX <= -8 || HeroX >= 3) {
+						HeroZ += 1;
+
+					}
 			}
 			Eye.x = HeroX;
 			Eye.y = 3;
@@ -1177,6 +1534,7 @@ void myKeyboard(unsigned char button, int x, int y)
 			At.x = HeroX;
 			At.y = 3;
 			At.z = HeroZ + 20;
+
 		}
 		glLoadIdentity();
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
@@ -1188,60 +1546,62 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookRight = false;
 		LookBackward = true;
 		if (!cameraType) {
-			if (HeroZ != BoundaryZ) {
+			if (HeroZ != -118) {
+				if (HeroZ != BoundaryZ) {
 
-				if (HeroZ == 29 && HeroX >= 7) {
-					HeroZ += 1;
-
-				}
-
-				if (HeroZ >= 14 || HeroZ <= -23)
-				{
-					HeroZ -= 1;
-				}
-
-				else
-					if (HeroX <= -8 || HeroX >= 3) {
-						HeroZ -= 1;
+					if (HeroZ == 29 && HeroX >= 7) {
+						HeroZ += 1;
 
 					}
-			}
-			Eye.x = HeroX;
-			Eye.y = 30;
 
-			Eye.z = HeroZ + 20;
-			At.x = HeroX;
-			At.y = 3;
-			At.z = HeroZ;
-			glLoadIdentity();
-			gluLookAt(Eye.x, 60, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+					if (HeroZ >= 14 || HeroZ <= -23)
+					{
+						HeroZ -= 1;
+					}
+
+					else
+						if (HeroX <= -8 || HeroX >= 3) {
+							HeroZ -= 1;
+
+						}
+				}
+				Eye.x = HeroX;
+				Eye.y = 30;
+
+				Eye.z = HeroZ + 20;
+				At.x = HeroX;
+				At.y = 3;
+				At.z = HeroZ;
+
+			}
 		}
 		else {
-			if (HeroZ != -338) {
-
-				if (HeroZ == 29 && HeroX >= 7) {
-					HeroZ += 1;
-
-				}
-
-				if (HeroZ >= 14 || HeroZ <= -23)
-				{
-					HeroZ -= 1;
-				}
-
-				else
-					if (HeroX <= -8 || HeroX >= 3) {
-						HeroZ -= 1;
+			if (HeroZ != -118) {
+				if (HeroZ != BoundaryZ) {
+					if (HeroZ == 29 && HeroX >= 7) {
+						HeroZ += 1;
 
 					}
-			}
-			Eye.x = HeroX;
-			Eye.z = HeroZ - 2;
-			Eye.y = 3;
-			At.x = HeroX;
-			At.y = 3;
-			At.z = HeroZ - 20;
 
+					if (HeroZ >= 14 || HeroZ <= -23)
+					{
+						HeroZ -= 1;
+					}
+
+					else
+						if (HeroX <= -8 || HeroX >= 3) {
+							HeroZ -= 1;
+
+						}
+				}
+				Eye.x = HeroX;
+				Eye.z = HeroZ - 2;
+				Eye.y = 3;
+				At.x = HeroX;
+				At.y = 3;
+				At.z = HeroZ - 20;
+
+			}
 		}
 		glLoadIdentity();
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
@@ -1253,10 +1613,14 @@ void myKeyboard(unsigned char button, int x, int y)
 		level2 = 1 - level2;
 		break;
 	case'l':
+
 		if (lightChanged == 0)
 			lightChanged = 1;
 		else
 			lightChanged = 0;
+		break;
+	case 'i':
+		flycage = 1 - flycage;
 		break;
 	case 'c':
 		cameraType = !cameraType;
@@ -1280,6 +1644,11 @@ void myKeyboard(unsigned char button, int x, int y)
 			WepX = HeroX;
 			WepZ = HeroZ;
 		}
+		break;
+
+
+	case 'm':
+		dragondead = 1 - dragondead;
 		break;
 	case 27:
 		//exit(0);
@@ -1352,7 +1721,7 @@ void testTimer(int val) {
 
 
 	glutPostRedisplay();						// redraw 		
-	glutTimerFunc(100000, testTimer, 0);
+	glutTimerFunc(10000, testTimer, 0);
 }
 void HitTimer(int value) {
 	if (delay == false) {
@@ -1394,6 +1763,32 @@ void myMouse(int button, int state, int x, int y)
 }
 
 void Anim() {
+
+	//cage fly
+	if (flycage) {
+		cagetranslatey += 0.2;
+	}
+
+
+	//player gets hit by dragon
+
+	if (dragondead) {
+		dragonscalex -= 0.1;
+		dragonscaley -= 0.1;
+		dragonscalez -= 0.1;
+		flycage = 1;
+	}
+
+	if ((DragonX <= HeroX + 6 && DragonX >= HeroX - 6) && (DragonZ<= HeroZ + 6 && DragonZ>=HeroZ - 6)) {
+		health1 = false;
+		health2 = false;
+		health3 = false;
+	}
+
+	
+	//============================
+
+	
 	if (SphereY <= 1 && SphereX == HeroX && SphereZ == HeroZ) {
 		if (health2 && health3 && health1 && hit) {
 			health3 = !health3;
@@ -1417,47 +1812,50 @@ void Anim() {
 	if (!health1 && !health2 && !health3) {
 		//exit(0);
 	}
-	if (level2 == 1) {
+	if (level2 == 1 && stoneY >= -20) {
 		lightChanged = 1;
 		stoneY -= 0.07;
 		wallX += 0.4;
 	}
 
-	if (level2start == 1) {
-		movetowardsplayer = 1;
-	}
-
+	
 	if (dropbomb == 1) {
-		SphereY -= 0.3;
+		SphereY -= 0.5;
 	}
-	if (dropbomb == 0) {
-		SphereY = 30;
-	}
-	if (SphereY <= -10) {
-		SphereY = 30;
-	}
-	if (movetowardsplayer == 1) {
-		if (DragonX != HeroX) {
-			if (DragonX > HeroX) {
-				DragonX -= 0.2;
-			}
-			else if (DragonX < HeroX) {
-				DragonX += 0.2;
-
-			}
-
+		if (level2start == 1) {
+			movetowardsplayer = 1;
 		}
-		if (DragonZ != HeroZ) {
-			if (DragonZ > HeroZ) {
-				DragonZ -= 0.06;
-			}
-			else if (DragonZ < HeroZ) {
-				DragonZ += 0.06;
 
-			}
 
+		if (dropbomb == 0) {
+			SphereY = 30;
 		}
-	}
+		if (SphereY <= -10) {
+			SphereY = 30;
+		}
+
+		if (movetowardsplayer == 1 && dragondead == 0) {
+			if (DragonX != HeroX) {
+				if (DragonX > HeroX) {
+					DragonX -= 0.3;
+				}
+				else if (DragonX < HeroX) {
+					DragonX += 0.3;
+				}
+
+
+			}
+			if (DragonZ != HeroZ) {
+				if (DragonZ > HeroZ) {
+					DragonZ -= 0.3;
+				}
+				else if (DragonZ < HeroZ) {
+					DragonZ += 0.3;
+
+				}
+
+			}
+		}
 	// Powerup conditionals
 	if (HeroX == 22 && HeroZ == -20 && !powerup2) {
 		powerup2 = true;
