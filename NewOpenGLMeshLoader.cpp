@@ -1320,13 +1320,15 @@ void myMotion(int x, int y)
 
 
 void testTimer(int val) {
+
 	if (level2start == 1) {
 		DragonZ = (rand() % 120) * -1;
 		DragonX = rand() % 40;
 		dropbomb = 1 - dropbomb;
-		SphereX = HeroX;
-		SphereZ = HeroZ;
-
+		if (dropbomb == 1) {
+			SphereX = HeroX;
+			SphereZ = HeroZ;
+		}
 		if (DragonZ > -40)
 			DragonZ = -50;
 
@@ -1341,6 +1343,7 @@ void testTimer(int val) {
 			DragonRoationAngle = 90;
 			dragonMovement = 0;
 		}
+
 	}
 
 
@@ -1357,7 +1360,7 @@ void HitTimer(int value) {
 	}
 
 	glutPostRedisplay();						// redraw 		
-	glutTimerFunc(1000, HitTimer, 0);
+	glutTimerFunc(1500, HitTimer, 0);
 }
 
 void timerPower(int val) {
@@ -1388,8 +1391,24 @@ void myMouse(int button, int state, int x, int y)
 
 void Anim() {
 	if (SphereY <= 1 && SphereX == HeroX && SphereZ == HeroZ) {
-		printf("ana henaa");
-		//exit(0);
+		if (health2 && health3 && health1 && hit) {
+			health3 = !health3;
+			hit = false;
+			delay = false;
+
+		}
+		else if(health2  && health1 && hit){
+			health2 = !health2;
+			hit = false;
+			delay = false;
+
+		}
+		else if(health1 && hit) {
+			health1 = !health1;
+			hit = false;
+			delay = false;
+
+		}
 	}
 	if (!health1 && !health2 && !health3) {
 		//exit(0);
