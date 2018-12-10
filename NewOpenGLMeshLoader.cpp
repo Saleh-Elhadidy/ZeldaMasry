@@ -62,6 +62,13 @@ int HitEnemy3 = 0;
 int HitEnemy4 = 0;
 int HitEnemy5 = 0;
 int HitEnemy6 = 0;
+
+float wallX = -40.0;
+float stoneY = 5.0;
+
+int level2start = 0;
+int level2 = 0;
+
 int movetowardsplayer = 1;
 int dropbomb = 0;
 //Second field varibales 
@@ -381,7 +388,7 @@ void myDisplay(void)
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslated(-40, 0, -40);
+	glTranslated(wallX, 0, -40);
 	glRotated(90, 0.0, 1.0, 0.0);
 	glScaled(1.0, 7.0, 80.0);
 	drawWall(0.7);
@@ -415,12 +422,12 @@ void myDisplay(void)
 	drawWall(0.7);
 	glPopMatrix();
 
-	glPushMatrix();
-	glTranslated(-40, 0, -40);
-	glRotated(90, 0.0, 1.0, 0.0);
-	glScaled(1.0, 7.0, 80.0);
-	drawWall(0.7);
-	glPopMatrix();
+	//glPushMatrix();
+	//glTranslated(-40, 0, -40);
+	//glRotated(90, 0.0, 1.0, 0.0);
+	//glScaled(1.0, 7.0, 80.0);
+	//drawWall(0.7);
+	//glPopMatrix();
 	//-------------------------------------
 
 
@@ -640,102 +647,102 @@ void myDisplay(void)
 	//draw stones
 
 	glPushMatrix();
-	glTranslatef(38, 5, -41);
+	glTranslatef(38, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 
 	glPushMatrix();
-	glTranslatef(33, 5, -41);
+	glTranslatef(33, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 
 	glPushMatrix();
-	glTranslatef(28, 5, -41);
+	glTranslatef(28, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 
 	glPushMatrix();
-	glTranslatef(23, 5, -41);
+	glTranslatef(23, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 
 	glPushMatrix();
-	glTranslatef(18, 5, -41);
+	glTranslatef(18, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 
 	glPushMatrix();
-	glTranslatef(13, 5, -41);
+	glTranslatef(13, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(8, 5, -41);
+	glTranslatef(8, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(3, 5, -41);
+	glTranslatef(3, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-2, 5, -41);
+	glTranslatef(-2, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-7, 5, -41);
+	glTranslatef(-7, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-12, 5, -41);
+	glTranslatef(-12, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-17, 5, -41);
+	glTranslatef(-17, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-22, 5, -41);
+	glTranslatef(-22, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-27, 5, -41);
+	glTranslatef(-27, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-32, 5, -41);
+	glTranslatef(-32, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-37, 5, -41);
+	glTranslatef(-37, stoneY, -41);
 	//glScaled(0.2, 0.2, 0.2);
 	model_stone.Draw();
 	glPopMatrix();
@@ -1109,7 +1116,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookRight = false;
 		LookBackward = true;
 		if (!cameraType) {
-			if (HeroZ != -338) {
+			if (HeroZ != -38) {
 
 				if (HeroZ == 29 && HeroX >= 7) {
 					HeroZ += 1;
@@ -1167,7 +1174,12 @@ void myKeyboard(unsigned char button, int x, int y)
 		glLoadIdentity();
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
-
+	case 'o':
+		movetowardsplayer = 1 - movetowardsplayer;
+		break;
+	case 'p':
+		level2 = 1-level2;
+		break;
 	case 'c':
 		cameraType = !cameraType;
 		break;
@@ -1288,6 +1300,14 @@ void myMouse(int button, int state, int x, int y)
 }
 
 void Anim() {
+	if (level2 == 1) {
+		stoneY -= 0.07;
+		wallX += 0.3	;
+	}
+	
+	//if (level2start == 1) {
+	//}
+	
 	if (dropbomb==1) {
 		SphereY -= 0.3;
 	}
@@ -1300,18 +1320,18 @@ void Anim() {
 	if (movetowardsplayer == 1) {
 		if (DragonX != HeroX) {
 			if (DragonX > HeroX) {
-				DragonX -= 0.5;
+				DragonX -= 0.3;
 			}
 			else if (DragonX < HeroX) {
-				DragonX += 0.5;
+				DragonX += 0.3;
 			}
 		}
 		if (DragonZ != HeroZ) {
 			if (DragonZ > HeroZ) {
-				DragonZ -= 0.6;
+				DragonZ -= 0.3;
 			}
 			else if (DragonZ < HeroZ) {
-				DragonZ += 0.6;
+				DragonZ += 0.3;
 			}
 		}
 	}
