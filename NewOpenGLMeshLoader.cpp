@@ -62,8 +62,8 @@ int HitEnemy3 = 0;
 int HitEnemy4 = 0;
 int HitEnemy5 = 0;
 int HitEnemy6 = 0;
-
-
+int movetowardsplayer = 1;
+int dropbomb = 0;
 //Second field varibales 
 float DragonX = 0;
 float DragonZ = -80;
@@ -78,6 +78,9 @@ bool donePower2 = false;
 int timer1Count = 0;
 bool freeze = false;
 bool cameraType = false;
+float SphereX = 30;
+float SphereY = 30;
+float SphereZ = 30;
 GLuint tex;
 char title[] = "3D Model Loader Sample";
 void Anim();
@@ -772,15 +775,7 @@ void myDisplay(void)
 	model_baby.Draw();
 	glPopMatrix();
 
-	//draw dragon
-	glPushMatrix();
-	glTranslatef(DragonX, 0, DragonZ);
-	glScaled(4.0, 4.0, 4.0);
-	//glRotatef(90.f, 1, 0, 0);
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glRotated(DragonRoationAngle, 0, 1, 0);
-	model_dragon.Draw();
-	glPopMatrix();
+	
 
 	//Draw enemies
 	if (HitEnemy1==0) {
@@ -848,6 +843,23 @@ void myDisplay(void)
 	glScaled(0.005, 0.005, 0.005);
 	model_apple.Draw();
 	glEnd();
+	glPopMatrix();
+
+	//draw dragon
+	glPushMatrix();
+	glTranslatef(DragonX, 0, DragonZ);
+	glScaled(4.0, 4.0, 4.0);
+	//glRotatef(90.f, 1, 0, 0);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glRotated(DragonRoationAngle, 0, 1, 0);
+	model_dragon.Draw();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(SphereX, SphereY, SphereZ);
+	glScaled(0.2, 0.2, 0.2);
+	glColor3f(1.0, 0.0, 0.0);
+	glutSolidSphere(10, 15, 15);
 	glPopMatrix();
 
 	glutSwapBuffers();
@@ -1225,6 +1237,9 @@ void testTimer(int val) {
 	DragonX = rand() % 40;
 	printf("%f\n Dragon X :", DragonX);
 	printf("%f\n Dragon Z :", DragonZ);
+	dropbomb = 1 - dropbomb;
+	SphereX = HeroX;
+	SphereZ = HeroZ;
 
 	if (DragonZ > -40)
 		DragonZ = -50;
@@ -1241,7 +1256,7 @@ void testTimer(int val) {
 		dragonMovement = 0;
 	}
 	glutPostRedisplay();						// redraw 		
-	glutTimerFunc(5000, testTimer, 0);
+	glutTimerFunc(7000, testTimer, 0);
 }
 
 void timerPower(int val) {
@@ -1271,6 +1286,30 @@ void myMouse(int button, int state, int x, int y)
 }
 
 void Anim() {
+	if (dropbomb) {
+		SphereY -= 0.3;
+	}
+	if (SphereY <= -10) {
+		SphereY = 30;
+	}
+	if (movetowardsplayer == 1) {
+		if (DragonX != HeroX) {
+			if (DragonX > HeroX) {
+				DragonX -= 0.5;
+			}
+			else if (DragonX < HeroX) {
+				DragonX += 0.5;
+			}
+		}
+		if (DragonZ != HeroZ) {
+			if (DragonZ > HeroZ) {
+				DragonZ -= 0.6;
+			}
+			else if (DragonZ < HeroZ) {
+				DragonZ += 0.6;
+			}
+		}
+	}
 	// Powerup conditionals
 	if (HeroX == 22 && HeroZ == -20 && !powerup2) {
 		powerup2 = true;
