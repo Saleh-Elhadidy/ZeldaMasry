@@ -128,7 +128,7 @@ Model_3DS model_cage;
 Model_3DS model_stone;
 Model_3DS model_hg;
 Model_3DS model_potion;
-
+Model_3DS model_apple;
 // Textures
 GLTexture tex_ground;
 GLTexture tex_bricks;
@@ -603,6 +603,8 @@ void myDisplay(void)
 		model_hg.Draw();
 		glPopMatrix();
 	}
+	
+
 
 
 	//stones for testing
@@ -835,7 +837,18 @@ void myDisplay(void)
 		model_enemy1.Draw();
 		glPopMatrix();
 	}
-
+	glPushMatrix();
+	glTranslated(At.x,At.y+1.25,At.z);
+	glScaled(0.005,0.005,0.005);
+	model_apple.Draw();
+	glEnd();
+	glPopMatrix();
+	glPushMatrix();
+	glTranslated(At.x+1, At.y+1.25, At.z);
+	glScaled(0.005, 0.005, 0.005);
+	model_apple.Draw();
+	glEnd();
+	glPopMatrix();
 
 	glutSwapBuffers();
 }
@@ -1074,10 +1087,6 @@ void myKeyboard(unsigned char button, int x, int y)
 		}
 		glLoadIdentity();
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
-		break;
-
-
-
 		break;
 	case 'w':
 		lastDir = true;
@@ -1396,12 +1405,11 @@ void Anim() {
 		Collided = 1; //to be changed to zero at the heakth bar
 	}
 
-	//printf("%d\n Collided:", Collided);
 
 
 
 	///////WEAPON///////////
-	rotAngleWep += 5;
+	rotAngleWep += 10;
 	if (rotAngleWep == 720) {
 		rotAngleWep = 0;
 	}
@@ -1412,16 +1420,16 @@ void Anim() {
 		}
 		else {
 			if (bulletDirection == 1) {
-				WepZ += 0.65;
+				WepZ += 0.95;
 			}
 			else if (bulletDirection == 2) {
-				WepZ -= 0.65;
+				WepZ -= 0.95;
 			}
 			else if (bulletDirection == 3) {
-				WepX += 0.65;
+				WepX += 0.95;
 			}
 			else if (bulletDirection == 4) {
-				WepX -= 0.65;
+				WepX -= 0.95;
 			}
 		}
 		//Bullet collisions with enemies
@@ -1538,10 +1546,7 @@ void LoadAssets()
 	model_weapon.Load("Models/sword/sword/shurkin.3ds");
 	model_dragon.Load("Models/blooddragon/blooddragon.3ds");
 	model_enemy1.Load("Models/femalezombie/Zumbi_Female.3ds");
-	//model_enemy2.Load("Models/femalezombie/Zumbi_Female.3ds");
-	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
-	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
-
+	model_apple.Load("Models/apple/Apple/Apple.3ds");
 	//model_baby.Load("Models/baby/baby.3ds");
 	model_cage.Load("Models/birdcage/Cage.3ds");
 	model_stone.Load("Models/stone/stone podest 3DS.3ds");
