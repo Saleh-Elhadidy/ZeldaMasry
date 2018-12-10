@@ -1127,13 +1127,11 @@ void myDisplay(void)
 	//----------------------------------
 
 	//draw cage
-	if (Cage) {
 		glPushMatrix();
-		glTranslatef(25, 0, -74);
+		glTranslatef(25, cagetranslatey, -74);
 		glScaled(0.2, 0.2, 0.2);
 		model_cage.Draw();
 		glPopMatrix();
-	}
 
 	//--------------------
 
@@ -1255,7 +1253,7 @@ void myDisplay(void)
 	if (dragHit != 4) {
 		glPushMatrix();
 		glTranslatef(DragonX, 0, DragonZ);
-		glScaled(4.0, 4.0, 4.0);
+		glScaled(dragonscalex, dragonscaley, dragonscalez);
 		//glRotatef(90.f, 1, 0, 0);
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glRotated(DragonRoationAngle, 0, 1, 0);
@@ -2240,6 +2238,7 @@ void Anim() {
 		if ((WepX <= DragonX + 8 && WepX >= DragonX - 8) && (WepZ <= DragonZ + 5 && WepZ >= DragonZ - 5) && WepFire) {
 			WepFire = false;
 			if (dragHit == 4) {
+				dragondead = 1;
 				Cage = false;
 				DragonX = 1000;
 				DragonZ = 1000;
@@ -2247,6 +2246,7 @@ void Anim() {
 			else {
 				dragHit++;
 				if (dragHit == 4) {
+					dragondead = 1;
 					Cage = false;
 					DragonX = 1000;
 					DragonZ = 1000;
