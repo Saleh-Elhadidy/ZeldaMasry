@@ -819,38 +819,84 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookRight = false;
 		LookForward = false;
 		LookBackward = false;
-		Eye.x = HeroX + 1;
-		if (lastDir) {
-			LookLeft = true;
-			LookRight = false;
-			LookForward = false;
-			LookBackward = false;
-			Eye.z = HeroZ + 20;
-			if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
-				HeroX += 1;
-			}
-			if (HeroX != 38 && HeroX < 5) {
-				HeroX += 1;
-			}
+		if (!cameraType) {
+			if (lastDir) {
+				LookLeft = true;
+				LookRight = false;
+				LookForward = false;
+				LookBackward = false;
+				if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
+					HeroX += 1;
+					Eye.x = HeroX + 1;
 
+				}
+				if (HeroX != 38 && HeroX < 5) {
+					HeroX += 1;
+					Eye.x = HeroX + 1;
+				}
+				Eye.z = HeroZ + 20;
+				Eye.y = 30;
+				At.x = HeroX + 1;
+				At.y = 3;
+				At.z = HeroZ;
+			}
+			else {
+				LookLeft = false;
+				LookRight = true;
+				LookForward = false;
+				LookBackward = false;
+				if (HeroX != -38) {
+					HeroX -= 1;
+					Eye.x = HeroX - 1;
+				}
+				Eye.z = HeroZ - 20;
+				Eye.y = 30;
+				At.x = HeroX + 1;
+				At.y = 3;
+				At.z = HeroZ;
+			}
+			
 		}
 		else {
-			LookLeft = false;
-			LookRight = true;
-			LookForward = false;
-			LookBackward = false;
-			Eye.z = HeroZ - 20;
-			if (HeroX != -38) {
-				HeroX -= 1;
-				Eye.x = HeroX - 1;
-			}
+			if (lastDir) {
+				LookLeft = true;
+				LookRight = false;
+				LookForward = false;
+				LookBackward = false;
+				if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
+					HeroX += 1;
 
-		}		
-		At.x = HeroX+1;
-		At.y = 3;
-		At.z = HeroZ;
+				}
+				if (HeroX != 38 && HeroX < 5) {
+					HeroX += 1;
+				}
+				Eye.x = HeroX + 2;
+				Eye.z = HeroZ;
+				Eye.y = 3;
+				At.x = HeroX + 20;
+				At.y = 3;
+				At.z = HeroZ;
+
+			}
+			else {
+				LookLeft = false;
+				LookRight = true;
+				LookForward = false;
+				LookBackward = false;
+				if (HeroX != -38) {
+					HeroX -= 1;
+				}
+				Eye.x = HeroX - 2;
+				Eye.z = HeroZ;
+				Eye.y = 3;
+				At.x = HeroX - 20;
+				At.y = 3;
+				At.z = HeroZ;
+
+			}
+		}
 		glLoadIdentity();
-		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 
 		break;
 	case'a':
@@ -858,42 +904,85 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookBackward = false;
 		LookForward = false;
 		LookRight = true;
+		if (!cameraType) {
+			if (lastDir) {
 
-		if(lastDir){
-			
-			LookRight = true;
-			LookLeft = false;
-			LookBackward = false;
-			LookForward = false;
-			if(HeroX!=-38){
-				Eye.z = HeroZ + 20;
-				HeroX -= 1;
-				Eye.x = HeroX - 1;
+				LookRight = true;
+				LookLeft = false;
+				LookBackward = false;
+				LookForward = false;
+				if (HeroX != -38) {
+					Eye.z = HeroZ + 20;
+					HeroX -= 1;
+					Eye.x = HeroX - 1;
+				}
+
+
 			}
-			
-
+			else {
+				LookRight = false;
+				LookLeft = true;
+				LookBackward = false;
+				LookForward = false;
+				if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
+					Eye.z = HeroZ - 20;
+					HeroX += 1;
+					Eye.x = HeroX + 1;
+				}
+				if (HeroX != 38 && HeroX < 5) {
+					Eye.z = HeroZ - 20;
+					HeroX += 1;
+					Eye.x = HeroX + 1;
+				}
+			}
+			Eye.y = 30;
+			At.x = HeroX - 1;
+			At.y = 3;
+			At.z = HeroZ;
 		}
 		else {
-			LookRight = false;
-			LookLeft = true;
-			LookBackward = false;
-			LookForward = false;
-			if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
-				Eye.z = HeroZ - 20;
-				HeroX += 1;
-				Eye.x = HeroX - 1;
+			if (lastDir) {
+				LookRight = true;
+				LookLeft = false;
+				LookBackward = false;
+				LookForward = false;
+				if (HeroX != -38) {
+					Eye.z = HeroZ;
+					HeroX -= 1;
+					Eye.x = HeroX - 2;
+					Eye.y = 2;
+					At.x = HeroX - 20;
+					At.z = Eye.z;
+					At.y = 2;
+				}
 			}
-			if (HeroX != 38 && HeroX < 5) {
-				Eye.z = HeroZ - 20;
-				HeroX += 1;
-				Eye.x = HeroX - 1;
+			else {
+				LookRight = false;
+				LookLeft = true;
+				LookBackward = false;
+				LookForward = false;
+				if (HeroX != 38 && (HeroZ <= 23 || HeroZ >= 27)) {
+					Eye.z = HeroZ;
+					HeroX += 1;
+					Eye.x = HeroX + 2;
+					Eye.y = 2;
+					At.x = HeroX + 20;
+					At.z = Eye.z;
+					At.y = 2;
+				}
+				if (HeroX != 38 && HeroX < 5) {
+					Eye.z = HeroZ;
+					HeroX += 1;
+					Eye.x = HeroX + 2;
+					Eye.y = 2;
+					At.x = HeroX + 20;
+					At.z = Eye.z;
+					At.y = 2;
+				}
 			}
 		}
-		At.x = HeroX-1;
-		At.y = 3;
-		At.z = HeroZ;
 		glLoadIdentity();
-		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
 
 	case 's':
@@ -902,51 +991,92 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = false;
-		if (HeroZ != 38) {
-			if ((HeroZ <= 20 || HeroZ >= 28)) {
-				HeroZ += 1;
-			}
+		if (!cameraType) {
+			if (HeroZ != 38) {
+				if ((HeroZ <= 20 || HeroZ >= 28)) {
+					HeroZ += 1;
+				}
 
-			if (HeroX < 5) {
-				HeroZ += 1;
+				if (HeroX < 5) {
+					HeroZ += 1;
+				}
 			}
-
 			Eye.x = HeroX;
 			Eye.z = HeroZ - 20;
+			Eye.y = 30;
 			At.x = HeroX;
 			At.y = 3;
 			At.z = HeroZ;
-			glLoadIdentity();
-			gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
-			break;
+		}
+		else {
+			if (HeroZ != 38) {
+				if ((HeroZ <= 20 || HeroZ >= 28)) {
+					HeroZ += 1;
+				}
+
+				if (HeroX < 5) {
+					HeroZ += 1;
+				}
+			}
+			Eye.x = HeroX;
+			Eye.y = 3;
+			Eye.z = HeroZ+2;
+			At.x = HeroX;
+			At.y = 3;
+			At.z = HeroZ+20;
+		}
+		glLoadIdentity();
+		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+		break;
 
 
-			break;
+		break;
 	case 'w':
 		lastDir = true;
 		LookForward = false;;
 		LookLeft = false;
 		LookRight = false;
 		LookBackward = true;
+		if (!cameraType) {
+			if (HeroZ != -38) {
+				if (HeroZ >= 29 || HeroZ <= 21) {
+					HeroZ -= 1;
+				}
 
-		if (HeroZ != -38) {
-			if (HeroZ >= 29 || HeroZ <= 21) {
-				HeroZ -= 1;
+				if (HeroX < 5) {
+					HeroZ -= 1;
+				}
 			}
-
-			if (HeroX < 5) {
-				HeroZ -= 1;
-			}
+			Eye.x = HeroX;
+			Eye.y = 30;
+			Eye.z = HeroZ + 20;
+			At.x = HeroX;
+			At.y = 3;
+			At.z = HeroZ;
 		}
-		Eye.x = HeroX;
-		Eye.z = HeroZ + 20;
-		At.x = HeroX;
-		At.y = 3;
-		At.z = HeroZ;
+		else {
+			if (HeroZ != -38) {
+				if (HeroZ >= 29 || HeroZ <= 21) {
+					HeroZ -= 1;
+				}
+
+				if (HeroX < 5) {
+					HeroZ -= 1;
+				}
+			}
+			Eye.x = HeroX;
+			Eye.z = HeroZ -2;
+			Eye.y = 3;
+			At.x = HeroX;
+			At.y = 3;
+			At.z = HeroZ - 20;
+
+		}
 		glLoadIdentity();
-		gluLookAt(Eye.x, 35, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
 	case'f':
+		cameraType = !cameraType;
 		if (!WepFire) {
 			WepFire = true;
 			if (LookForward) {
@@ -970,12 +1100,10 @@ void myKeyboard(unsigned char button, int x, int y)
 		break;
 	default:
 		break;
-		}
 
 		glutPostRedisplay();
 	}
 }
-
 //=======================================================================
 // Motion Function
 //=======================================================================
