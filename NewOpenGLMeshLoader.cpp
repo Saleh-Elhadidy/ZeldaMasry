@@ -855,12 +855,14 @@ void myDisplay(void)
 	model_dragon.Draw();
 	glPopMatrix();
 
-	glPushMatrix();
-	glTranslatef(SphereX, SphereY, SphereZ);
-	glScaled(0.2, 0.2, 0.2);
-	glColor3f(1.0, 0.0, 0.0);
-	glutSolidSphere(10, 15, 15);
-	glPopMatrix();
+	if (dropbomb == 1) {
+		glPushMatrix();
+		glTranslatef(SphereX, SphereY, SphereZ);
+		glScaled(0.2, 0.2, 0.2);
+		glColor3f(1.0, 0.0, 0.0);
+		glutSolidSphere(10, 15, 15);
+		glPopMatrix();
+	}
 
 	glutSwapBuffers();
 }
@@ -1256,7 +1258,7 @@ void testTimer(int val) {
 		dragonMovement = 0;
 	}
 	glutPostRedisplay();						// redraw 		
-	glutTimerFunc(7000, testTimer, 0);
+	glutTimerFunc(8000, testTimer, 0);
 }
 
 void timerPower(int val) {
@@ -1286,7 +1288,7 @@ void myMouse(int button, int state, int x, int y)
 }
 
 void Anim() {
-	if (dropbomb) {
+	if (dropbomb==1) {
 		SphereY -= 0.3;
 	}
 	if (SphereY <= -10) {
