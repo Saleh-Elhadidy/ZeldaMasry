@@ -62,6 +62,14 @@ int HitEnemy3 = 0;
 int HitEnemy4 = 0;
 int HitEnemy5 = 0;
 int HitEnemy6 = 0;
+
+
+//Second field varibales 
+float DragonX = 0;
+float DragonZ = -80;
+int dragonMovement = 0;
+float DragonRoationAngle = 90;
+
 bool lastDir = true;   // Boolean to check the direction for "S" and "D" keys
 bool powerup1 = false;
 bool powerup2 = false; 
@@ -597,6 +605,31 @@ void myDisplay(void)
 	}
 
 
+	//stones for testing
+
+	//fo2 3al ymeeen
+	glPushMatrix();
+	glTranslatef(2, 5, -21);
+	glScaled(0.4, 0.8, 0.4);
+	model_stone.Draw();
+	glPopMatrix();
+
+	//fo2 3al shemal
+	glPushMatrix();
+	glTranslatef(-7, 5, -21);
+	glScaled(0.4, 0.8, 0.4);
+	model_stone.Draw();
+	glPopMatrix();
+
+
+	//ta7t 3al shemal
+	glPushMatrix();
+	glTranslatef(-7, 5, 12);
+	glScaled(0.4, 0.8, 0.4);
+	model_stone.Draw();
+	glPopMatrix();
+
+
 	//========================
 
 	//draw stones
@@ -739,11 +772,11 @@ void myDisplay(void)
 
 	//draw dragon
 	glPushMatrix();
-	glTranslatef(-10, 0, -60);
+	glTranslatef(DragonX, 0, DragonZ);
 	glScaled(4.0, 4.0, 4.0);
 	//glRotatef(90.f, 1, 0, 0);
 	glColor3f(1.0f, 1.0f, 1.0f);
-	glRotated(90, 0, 1, 0);
+	glRotated(DragonRoationAngle, 0, 1, 0);
 	model_dragon.Draw();
 	glPopMatrix();
 
@@ -855,7 +888,19 @@ void myKeyboard(unsigned char button, int x, int y)
 				At.y = 3;
 				At.z = HeroZ;
 			}
-			
+		
+			//if (HeroX != 38 && (HeroZ <= -20 || HeroZ >= 13)) {
+			//	HeroX += 1;
+			//}
+
+			//if (HeroX != 38 && HeroX < 5) {
+			//	HeroX += 1;
+			//}
+			//if (HeroX != 38 && (HeroX <= -6 || HeroX >= 3)) {
+			//	HeroX += 1;
+			//}
+
+
 		}
 		else {
 			if (lastDir) {
@@ -916,6 +961,7 @@ void myKeyboard(unsigned char button, int x, int y)
 					HeroX -= 1;
 					Eye.x = HeroX - 1;
 				}
+
 
 
 			}
@@ -983,6 +1029,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		}
 		glLoadIdentity();
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
+
 		break;
 
 	case 's':
@@ -1030,6 +1077,7 @@ void myKeyboard(unsigned char button, int x, int y)
 		break;
 
 
+
 		break;
 	case 'w':
 		lastDir = true;
@@ -1038,31 +1086,52 @@ void myKeyboard(unsigned char button, int x, int y)
 		LookRight = false;
 		LookBackward = true;
 		if (!cameraType) {
-			if (HeroZ != -38) {
-				if (HeroZ >= 29 || HeroZ <= 21) {
+			if (HeroZ != -338) {
+
+				if (HeroZ == 29 && HeroX >= 7) {
+					HeroZ += 1;
+
+				}
+
+				if (HeroZ >= 14 || HeroZ <= -23)
+				{
 					HeroZ -= 1;
 				}
 
-				if (HeroX < 5) {
-					HeroZ -= 1;
-				}
+				else
+					if (HeroX <= -8 || HeroX >= 3) {
+						HeroZ -= 1;
+
+					}
 			}
 			Eye.x = HeroX;
 			Eye.y = 30;
+
 			Eye.z = HeroZ + 20;
 			At.x = HeroX;
 			At.y = 3;
 			At.z = HeroZ;
+			glLoadIdentity();
+			gluLookAt(Eye.x, 60, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		}
 		else {
-			if (HeroZ != -38) {
-				if (HeroZ >= 29 || HeroZ <= 21) {
+			if (HeroZ != -338) {
+
+				if (HeroZ == 29 && HeroX >= 7) {
+					HeroZ += 1;
+
+				}
+
+				if (HeroZ >= 14 || HeroZ <= -23)
+				{
 					HeroZ -= 1;
 				}
 
-				if (HeroX < 5) {
-					HeroZ -= 1;
-				}
+				else
+					if (HeroX <= -8 || HeroX >= 3) {
+						HeroZ -= 1;
+
+					}
 			}
 			Eye.x = HeroX;
 			Eye.z = HeroZ -2;
@@ -1075,7 +1144,10 @@ void myKeyboard(unsigned char button, int x, int y)
 		glLoadIdentity();
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
-	case'f':
+
+
+
+	case'f' :
 		cameraType = !cameraType;
 		if (!WepFire) {
 			WepFire = true;
@@ -1087,7 +1159,7 @@ void myKeyboard(unsigned char button, int x, int y)
 			}
 			if (LookLeft) {
 				bulletDirection = 3;
-			}
+			}	
 			if (LookRight) {
 				bulletDirection = 4;
 			}
@@ -1102,8 +1174,9 @@ void myKeyboard(unsigned char button, int x, int y)
 		break;
 
 		glutPostRedisplay();
+		}
 	}
-}
+
 //=======================================================================
 // Motion Function
 //=======================================================================
@@ -1134,6 +1207,31 @@ void myMotion(int x, int y)
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
 	glutPostRedisplay();	//Re-draw scene 
+}
+
+
+void testTimer(int val) {
+	DragonZ = (rand() % 120) * -1;
+	DragonX = rand() % 40;
+	printf("%f\n Dragon X :", DragonX);
+	printf("%f\n Dragon Z :", DragonZ);
+
+	if (DragonZ > -40)
+		DragonZ = -50;
+
+	if (dragonMovement == 0)
+	{
+		DragonRoationAngle = 180;
+		DragonX = DragonX * -1;
+		dragonMovement = 1;
+	}
+	else
+	{
+		DragonRoationAngle = 90;
+		dragonMovement = 0;
+	}
+	glutPostRedisplay();						// redraw 		
+	glutTimerFunc(5000, testTimer, 0);
 }
 
 void timerPower(int val) {
@@ -1443,7 +1541,7 @@ void LoadAssets()
 	//model_enemy3.Load("Models/femalezombie/Zumbi_Female.3ds");
 	//model_enemy4.Load("Models/femalezombie/Zumbi_Female.3ds");
 
-	model_baby.Load("Models/baby/baby.3ds");
+	//model_baby.Load("Models/baby/baby.3ds");
 	model_cage.Load("Models/birdcage/Cage.3ds");
 	model_stone.Load("Models/stone/stone podest 3DS.3ds");
 	model_hg.Load("Models/hg/hourgalss.3ds");
@@ -1481,6 +1579,7 @@ void main(int argc, char** argv)
 
 	glutReshapeFunc(myReshape);
 
+	glutTimerFunc(100, testTimer, 0);
 	myInit();
 
 	LoadAssets();
