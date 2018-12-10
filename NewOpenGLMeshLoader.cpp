@@ -97,6 +97,9 @@ int dragonMovement = 0;
 float DragonRoationAngle = 90;
 int flycage = 0;
 
+float princessX = 29.0;
+float princessZ = -78.0;
+
 bool lastDir = true;   // Boolean to check the direction for "S" and "D" keys
 bool powerup1 = false;
 bool powerup2 = false;
@@ -1133,7 +1136,7 @@ void myDisplay(void)
 
 	//draw princess
 	glPushMatrix();
-	glTranslated(29, 5, -78);
+	glTranslated(princessX, 5, princessZ); 
 	model_princess.Draw();
 	glPopMatrix();
 
@@ -1771,6 +1774,28 @@ void Anim() {
 		dragonscaley -= 0.1;
 		dragonscalez -= 0.1;
 		flycage = 1;
+
+		if (princessX != HeroX) {
+			if (princessX > HeroX) {
+				princessX -= 0.5
+					;
+			}
+			else if (princessX < HeroX) {
+				princessX += 0.5;
+			}
+
+
+		}
+		if (princessZ != HeroZ) {
+			if (princessZ > HeroZ) {
+				princessZ -= 0.5;
+			}
+			else if (princessZ < HeroZ) {
+				princessZ += 0.5;
+
+			}
+
+		}
 	}
 
 	if ((DragonX <= HeroX + 6 && DragonX >= HeroX - 6) && (DragonZ<= HeroZ + 6 && DragonZ>=HeroZ - 6)) {
