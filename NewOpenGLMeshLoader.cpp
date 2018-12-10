@@ -1145,10 +1145,11 @@ void myKeyboard(unsigned char button, int x, int y)
 		gluLookAt(Eye.x, Eye.y, Eye.z, At.x, At.y, At.z, 0, 1, 0);
 		break;
 
-
+	case 'c':
+		cameraType = !cameraType;
+		break;
 
 	case'f' :
-		cameraType = !cameraType;
 		if (!WepFire) {
 			WepFire = true;
 			if (LookForward) {
