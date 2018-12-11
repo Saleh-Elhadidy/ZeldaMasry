@@ -1277,6 +1277,27 @@ void myDisplay(void)
 
 	glutSwapBuffers();
 }
+void OnMouseClick(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		if (!WepFire) {
+			WepFire = true;
+			if (LookForward) {
+				bulletDirection = 1;
+			}
+			if (LookBackward) {
+				bulletDirection = 2;
+			}
+			if (LookLeft) {
+				bulletDirection = 3;
+			}
+			if (LookRight) {
+				bulletDirection = 4;
+			}
+			WepX = HeroX;
+			WepZ = HeroZ;
+		}
+	}
+}
 // End of display function
 //=======================================================================
 // Keyboard Function
@@ -1812,6 +1833,7 @@ void Anim() {
 		health1 = false;
 		health2 = false;
 		health3 = false;
+		exit(0);
 	}
 
 	
@@ -1839,7 +1861,7 @@ void Anim() {
 		}
 	}
 	if (!health1 && !health2 && !health3) {
-		//exit(0);
+		exit(0);
 	}
 	if (level2 == 1 && stoneY >= -20 && !level2start) {
 		lightChanged = 1;
@@ -2349,7 +2371,7 @@ void main(int argc, char** argv)
 	glutMouseFunc(myMouse);
 
 	glutReshapeFunc(myReshape);
-
+	glutMouseFunc(OnMouseClick);
 	glutTimerFunc(100, testTimer, 0);
 	glutTimerFunc(2000, HitTimer, 0);
 
