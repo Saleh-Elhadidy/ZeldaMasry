@@ -76,6 +76,7 @@ int HitEnemy3 = 0;
 int HitEnemy4 = 0;
 int HitEnemy5 = 0;
 int HitEnemy6 = 0;
+int clock = 10000;
 
 float wallX = -40.0;
 float stoneY = 5.0;
@@ -1488,7 +1489,10 @@ void myKeyboard(unsigned char button, int x, int y)
 
 				if (HeroZ == 21 && HeroX >= 7) {
 					HeroZ -= 1;
+				}
 
+				if (level2start && HeroZ >= -45) {
+					HeroZ -= 1;
 				}
 
 				if (HeroZ >= 14 || HeroZ <= -23)
@@ -1722,7 +1726,7 @@ void testTimer(int val) {
 
 
 	glutPostRedisplay();						// redraw 		
-	glutTimerFunc(10000, testTimer, 0);
+	glutTimerFunc(clock, testTimer, 0);
 }
 void HitTimer(int value) {
 	if (delay == false) {
@@ -1767,7 +1771,7 @@ void Anim() {
 
 	//cage fly
 	if (flycage) {
-		cagetranslatey += 0.2;
+		cagetranslatey += 0.4;
 	}
 
 
@@ -1778,6 +1782,8 @@ void Anim() {
 		dragonscaley -= 0.1;
 		dragonscalez -= 0.1;
 		flycage = 1;
+		clock = 10000000;
+		dropbomb = 0;
 
 		if (princessX != HeroX) {
 			if (princessX > HeroX) {
@@ -1835,9 +1841,10 @@ void Anim() {
 	if (!health1 && !health2 && !health3) {
 		//exit(0);
 	}
-	if (level2 == 1 && stoneY >= -20) {
+	if (level2 == 1 && stoneY >= -20 && !level2start) {
 		lightChanged = 1;
-		stoneY -= 0.07;
+
+		stoneY -= 0.2;
 		wallX += 0.4;
 	}
 
@@ -1845,8 +1852,9 @@ void Anim() {
 	if (dropbomb == 1) {
 		SphereY -= 0.5;
 	}
-		if (level2start == 1) {
+		if (level2start == 1 && stoneY <=5) {
 			movetowardsplayer = 1;
+			stoneY += 1;
 		}
 
 
